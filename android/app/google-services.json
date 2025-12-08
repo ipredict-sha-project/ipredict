@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "538153412800",
+    "project_id": "iprdict-sha-project",
+    "storage_bucket": "iprdict-sha-project.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:538153412800:android:2f17c836d599b7c7eea525",
+        "android_client_info": {
+          "package_name": "com.ipredict.ipredict"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "538153412800-jv21a18lc0uv0ehsgn5vij5omfehqj4a.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ipredict.ipredict",
+            "certificate_hash": "f6bfdde086df2da000cc77df7f69a9a3d0c103af"
+          }
+        },
+        {
+          "client_id": "538153412800-iaeefm3u5v44satndea3838kq4gk445p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCl_3figB9xyV_GdokhOAr32Y_3lz0_JJ4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "538153412800-iaeefm3u5v44satndea3838kq4gk445p.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "538153412800-rjf1kt4sedfs2ricu1k4bq33hie57om1.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.ipredict.ipredict"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -47,6 +47,7 @@ dependencies:
   firebase_auth:
   cloud_firestore:
   google_sign_in: ^7.1.1
+  percent_indicator:
 
 dev_dependencies:
   flutter_test:

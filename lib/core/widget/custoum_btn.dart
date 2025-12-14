@@ -11,7 +11,8 @@ class CustoumBtn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CupertinoButton(
-      borderRadius: BorderRadius.circular(25),
+      borderRadius: BorderRadius.circular(16),
+      padding: EdgeInsets.all(20),
       color: AppColor.blue,
         onPressed: onTab,
         child: AnimatedCrossFade(firstChild: CupertinoActivityIndicator(

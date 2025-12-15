@@ -1,10 +1,13 @@
+import 'package:animated_toggle_switch/animated_toggle_switch.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ipredict/core/routes_manager/routes/app_route_name.dart';
+import 'package:provider/provider.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
+import '../../../../core/manager/app_provider.dart';
 import '../../../../core/theme/app_color.dart';
 import '../../data/models/onboarding_model.dart';
 import '../../theme/theme.dart';

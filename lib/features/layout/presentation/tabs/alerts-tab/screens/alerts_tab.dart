@@ -40,326 +40,158 @@ class AlertsTab extends StatelessWidget {
             height: 15,
           ),
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Container(
-                width: 85,
-                height: 106,
+                padding: EdgeInsets.symmetric(horizontal: 25, vertical: 24),
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(16),
-                  boxShadow: [
-                    BoxShadow(
-                        color: Colors.black.withOpacity(0.2),
-                        blurRadius: 8,
-                        spreadRadius: 2,
-                        offset: Offset(0, 4))
-                  ],
-                  color: Color(0xffFFFFFF),
-                ),
+                    color: AppColor.gray.withValues(alpha: 0.1),
+                    borderRadius: BorderRadius.circular(16),
+                    border: Border.all(color: AppColor.gray)),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    SvgPicture.asset("assets/icons/bell.svg"),
-                    Text(
-                      "8",
-                      style: TextStyle(
-                        color: Color(0xff222222),
-                        fontSize: 20,
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
-                    SizedBox(
-                      height: 15,
+                    SvgPicture.asset(
+                      'assets/icons/bell.svg',
+                      width: 25,
                     ),
                     Text(
-                      "Total",
+                      '8',
                       style: TextStyle(
-                          color: Color(0xff6A7282),
-                          fontSize: 9,
+                          color: AppColor.black,
+                          fontSize: 20,
                           fontWeight: FontWeight.w400),
-                    )
+                    ),
+                    Text(
+                      'Total',
+                      style: TextStyle(
+                          color: AppColor.black,
+                          fontSize: 10,
+                          fontWeight: FontWeight.w400),
+                    ),
                   ],
                 ),
-              ),
-              SizedBox(
-                width: 10,
               ),
               Container(
-                width: 85,
-                height: 106,
+                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 24),
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(16),
-                  boxShadow: [
-                    BoxShadow(
-                        color: Colors.black.withOpacity(0.2),
-                        blurRadius: 8,
-                        spreadRadius: 2,
-                        offset: Offset(0, 4))
-                  ],
-                  color: Color(0xffFFE2E2),
-                ),
+                    color: AppColor.red.withValues(alpha: 0.1),
+                    borderRadius: BorderRadius.circular(16),
+                    border: Border.all(color: AppColor.red)),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    SvgPicture.asset("assets/icons/warning.svg" , color: AppColor.red,),
-                    Text(
-                      "3",
-                      style: TextStyle(
-                        color: Color(0xffE7000B),
-                        fontSize: 20,
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
-                    SizedBox(
-                      height: 15,
+                    SvgPicture.asset(
+                      'assets/icons/warning.svg',
+                      width: 25,
+                      color: AppColor.red,
                     ),
                     Text(
-                      "Critical",
+                      '8',
                       style: TextStyle(
-                          color: Color(0xff6A7282),
-                          fontSize: 9,
+                          color: AppColor.red,
+                          fontSize: 20,
                           fontWeight: FontWeight.w400),
-                    )
+                    ),
+                    Text(
+                      'warning',
+                      style: TextStyle(
+                          color: AppColor.black,
+                          fontSize: 10,
+                          fontWeight: FontWeight.w400),
+                    ),
                   ],
                 ),
-              ),
-              SizedBox(
-                width: 10,
               ),
               Container(
-                width: 85,
-                height: 106,
+                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 24),
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(16),
-                  boxShadow: [
-                    BoxShadow(
-                        color: Colors.black.withOpacity(0.2),
-                        blurRadius: 8,
-                        spreadRadius: 2,
-                        offset: Offset(0, 4))
-                  ],
-                  color: Color(0xffFFEDD4),
-                ),
+                    color: AppColor.orange.withValues(alpha: 0.1),
+                    borderRadius: BorderRadius.circular(16),
+                    border: Border.all(color: AppColor.orange)),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    SvgPicture.asset("assets/icons/warning.svg"),
-                    Text(
-                      "3",
-                      style: TextStyle(
-                        color: Color(0xffF54900),
-                        fontSize: 20,
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
-                    SizedBox(
-                      height: 15,
+                    SvgPicture.asset(
+                      'assets/icons/warning.svg',
+                      width: 25,
                     ),
                     Text(
-                      "Warning",
+                      '8',
                       style: TextStyle(
-                          color: Color(0xff6A7282),
-                          fontSize: 9,
+                          color: AppColor.orange,
+                          fontSize: 20,
                           fontWeight: FontWeight.w400),
-                    )
+                    ),
+                    Text(
+                      'warning',
+                      style: TextStyle(
+                          color: AppColor.black,
+                          fontSize: 10,
+                          fontWeight: FontWeight.w400),
+                    ),
                   ],
                 ),
-              ),
-              SizedBox(
-                width: 10,
               ),
               Container(
-                width: 85,
-                height: 106,
+                padding: EdgeInsets.symmetric(horizontal: 18, vertical: 24),
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(16),
-                  boxShadow: [
-                    BoxShadow(
-                        color: Colors.black.withOpacity(0.2),
-                        blurRadius: 8,
-                        spreadRadius: 2,
-                        offset: Offset(0, 4))
-                  ],
-                  color: Color(0xffDCFCE7),
-                ),
+                    color: AppColor.green.withValues(alpha: 0.1),
+                    borderRadius: BorderRadius.circular(16),
+                    border: Border.all(color: AppColor.green)),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    SvgPicture.asset("assets/icons/active.svg"),
-                    Text(
-                      "2",
-                      style: TextStyle(
-                        color: Color(0xff00A63E),
-                        fontSize: 20,
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
-                    SizedBox(
-                      height: 15,
+                    SvgPicture.asset(
+                      'assets/icons/active.svg',
+                      width: 25,
                     ),
                     Text(
-                      "Resolved",
+                      '2',
                       style: TextStyle(
-                          color: Color(0xff6A7282),
-                          fontSize: 9,
+                          color: AppColor.green,
+                          fontSize: 20,
                           fontWeight: FontWeight.w400),
-                    )
+                    ),
+                    Text(
+                      'Resolved',
+                      style: TextStyle(
+                          color: AppColor.black,
+                          fontSize: 10,
+                          fontWeight: FontWeight.w400),
+                    ),
                   ],
                 ),
-              ),
-              SizedBox(
-                width: 10,
               ),
               Container(
-                width: 85,
-                height: 106,
+                padding: EdgeInsets.symmetric(horizontal: 25, vertical: 24),
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(16),
-                  boxShadow: [
-                    BoxShadow(
-                        color: Colors.black.withOpacity(0.2),
-                        blurRadius: 8,
-                        spreadRadius: 2,
-                        offset: Offset(0, 4))
-                  ],
-                  color: Color(0xffFFFFFF),
-                ),
+                    color: AppColor.gray.withValues(alpha: 0.1),
+                    borderRadius: BorderRadius.circular(16),
+                    border: Border.all(color: AppColor.gray)),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    SvgPicture.asset("assets/icons/bell.svg"),
-                    Text(
-                      "2",
-                      style: TextStyle(
-                        color: Color(0xff2962FF),
-                        fontSize: 20,
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
-                    SizedBox(
-                      height: 15,
+                    SvgPicture.asset(
+                      'assets/icons/bell.svg',
+                      width: 25,
                     ),
                     Text(
-                      "Unread",
+                      '8',
                       style: TextStyle(
-                          color: Color(0xff6A7282),
-                          fontSize: 9,
+                          color: AppColor.black,
+                          fontSize: 20,
                           fontWeight: FontWeight.w400),
-                    )
+                    ),
+                    Text(
+                      'Total',
+                      style: TextStyle(
+                          color: AppColor.black,
+                          fontSize: 10,
+                          fontWeight: FontWeight.w400),
+                    ),
                   ],
                 ),
-              )
+              ),
             ],
           ),
           SizedBox(
             height: 25,
-          ),
-          TextField(
-            decoration: InputDecoration(
-                hintText: "Search alerts by sensor, device, or location",
-                border:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(16)),
-                hintStyle: TextStyle(
-                  color: Color(0xff6C757D),
-                  fontSize: 16,
-                  fontWeight: FontWeight.w400,
-                )),
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          Row(
-            children: [
-              Container(
-                width: 80,
-                height: 67,
-                child: Padding(
-                  padding: const EdgeInsets.all(8),
-                  child: CupertinoButton(
-                      borderRadius: BorderRadius.circular(25),
-                      color: Color(0xff1E7FC8),
-                      child: Text(
-                        "All",
-                        style: TextStyle(
-                            color: Color(0xffFFFFFF),
-                            fontSize: 16,
-                            fontWeight: FontWeight.w400),
-                      ),
-                      onPressed: () {}),
-                ),
-              ),
-              SizedBox(
-                width: 10,
-              ),
-              Container(
-                width: 90,
-                height: 50,
-                child: CupertinoButton(
-                    borderRadius: BorderRadius.circular(25),
-                    color: Color(0xffFFFFFF),
-                    child: Text(
-                      "Critical",
-                      style: TextStyle(
-                          color: Color(0xff4A5565),
-                          fontSize: 16,
-                          fontWeight: FontWeight.w400),
-                    ),
-                    onPressed: () {}),
-              ),
-              SizedBox(
-                width: 10,
-              ),
-              Container(
-                width: 90,
-                height: 50,
-                child: CupertinoButton(
-                    borderRadius: BorderRadius.circular(25),
-                    color: Color(0xffFFFFFF),
-                    child: Text(
-                      "Warning",
-                      style: TextStyle(
-                          color: Color(0xff4A5565),
-                          fontSize: 16,
-                          fontWeight: FontWeight.w400),
-                    ),
-                    onPressed: () {}),
-              ),
-              SizedBox(
-                width: 10,
-              ),
-              Container(
-                width: 90,
-                height: 50,
-                child: CupertinoButton(
-                    borderRadius: BorderRadius.circular(25),
-                    color: Color(0xffFFFFFF),
-                    child: Text(
-                      "Resolved",
-                      style: TextStyle(
-                          color: Color(0xff4A5565),
-                          fontSize: 16,
-                          fontWeight: FontWeight.w400),
-                    ),
-                    onPressed: () {}),
-              ),
-              SizedBox(
-                width: 10,
-              ),
-              Container(
-                width: 90,
-                height: 50,
-                child: CupertinoButton(
-                    borderRadius: BorderRadius.circular(25),
-                    color: Color(0xffFFFFFF),
-                    child: Text(
-                      "Temperature",
-                      style: TextStyle(
-                          color: Color(0xff4A5565),
-                          fontSize: 16,
-                          fontWeight: FontWeight.w400),
-                    ),
-                    onPressed: () {}),
-              ),
-            ],
           ),
           Container(
             width: 400,

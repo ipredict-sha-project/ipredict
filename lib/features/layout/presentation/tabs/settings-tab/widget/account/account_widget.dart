@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../../../../../../core/theme/app_color.dart';
-import '../../../../../../../core/widget/custoum_btn.dart';
 
 class AccountWidget extends StatelessWidget {
   const AccountWidget({super.key});
@@ -16,15 +15,13 @@ class AccountWidget extends StatelessWidget {
           "Account",
           style: TextStyle(
               color: AppColor.gray,
-              fontSize: 16,
+              fontSize: 20,
               fontWeight: FontWeight.w400),
         ),
         SizedBox(
           height: 30,
         ),
         Container(
-          width: 400,
-          height: 115,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(16),
               boxShadow: [
@@ -60,14 +57,14 @@ class AccountWidget extends StatelessWidget {
                       "Profile Settings",
                       style: TextStyle(
                           color: AppColor.black,
-                          fontSize: 20,
+                          fontSize: 22,
                           fontWeight: FontWeight.w400),
                     ),
                     Text(
                       "Manage your account details",
                       style: TextStyle(
                           color: AppColor.gray,
-                          fontSize: 14,
+                          fontSize: 16,
                           fontWeight: FontWeight.w400),
                     ),
                   ],
@@ -87,8 +84,6 @@ class AccountWidget extends StatelessWidget {
           height: 10,
         ),
         Container(
-          width: 400,
-          height: 115,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(16),
               boxShadow: [
@@ -124,14 +119,14 @@ class AccountWidget extends StatelessWidget {
                       "Privacy & Security",
                       style: TextStyle(
                           color: AppColor.black,
-                          fontSize: 20,
+                          fontSize: 22,
                           fontWeight: FontWeight.w400),
                     ),
                     Text(
                       "Control your privacy settings",
                       style: TextStyle(
                           color: AppColor.gray,
-                          fontSize: 14,
+                          fontSize: 16,
                           fontWeight: FontWeight.w400),
                     ),
                   ],

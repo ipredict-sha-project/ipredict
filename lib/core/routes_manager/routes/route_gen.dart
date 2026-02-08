@@ -4,6 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:ipredict/features/auth/presentation/screens/forget_password.dart';
 import 'package:ipredict/features/auth/presentation/screens/register_screen.dart';
 import 'package:ipredict/features/layout/presentation/screens/layout_screen.dart';
+import 'package:ipredict/features/layout/presentation/tabs/alerts-tab/screens/alerts_tab.dart';
+import 'package:ipredict/features/layout/presentation/tabs/devices-tab/screens/devices_tab.dart';
+import 'package:ipredict/features/layout/presentation/tabs/home-tab/screens/home_tab.dart';
+import 'package:ipredict/features/layout/presentation/tabs/sensors-tab/screens/sensors_tab.dart';
+import 'package:ipredict/features/layout/presentation/tabs/settings-tab/screens/settings_tab.dart';
 import 'package:ipredict/features/onboarding/presentation/screens/onboarding_screen.dart';
 import 'package:ipredict/features/splach/presentation/screens/splach_screen.dart';
 
@@ -50,26 +55,37 @@ class RouteGen {
             return LayoutScreen();
           },
         );
-      // case AppRouteName.event_details:
-      //   {
-      //     var event = settings.arguments as EventModel;
-      //     return MaterialPageRoute(
-      //       builder: (_) => EventDetails(eventModel: event),
-      //     );
-      //   }
-      // case AppRouteName.addEvent:
-      //   return MaterialPageRoute(
-      //     builder: (context) {
-      //       return AddEventScreen();
-      //     },
-      //   );
-      // case AppRouteName.editEvent:
-      //   {
-      //     var event = settings.arguments as EventModel;
-      //     return MaterialPageRoute(
-      //       builder: (_) => EditEvent(eventModel: event),
-      //     );
-      //   }
+        case AppRouteName.home:
+        return MaterialPageRoute(
+          builder: (context) {
+            return HomeTab();
+          },
+        );
+        case AppRouteName.sensor:
+        return MaterialPageRoute(
+          builder: (context) {
+            return SensorsTab();
+          },
+        );
+        case AppRouteName.device:
+        return MaterialPageRoute(
+          builder: (context) {
+            return DevicesTab();
+          },
+        );
+        case AppRouteName.alerts:
+        return MaterialPageRoute(
+          builder: (context) {
+            return AlertsTab();
+          },
+        );
+        case AppRouteName.setting:
+        return MaterialPageRoute(
+          builder: (context) {
+            return SettingsTab();
+          },
+        );
+
 
       default:
         return MaterialPageRoute(

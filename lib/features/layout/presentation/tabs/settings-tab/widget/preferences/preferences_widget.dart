@@ -15,15 +15,13 @@ class PreferencesWidget extends StatelessWidget {
           "Preferences",
           style: TextStyle(
               color: AppColor.gray,
-              fontSize: 16,
+              fontSize: 20,
               fontWeight: FontWeight.w400),
         ),
         SizedBox(
           height: 30,
         ),
         Container(
-          width: 400,
-          height: 115,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(16),
               boxShadow: [
@@ -59,14 +57,14 @@ class PreferencesWidget extends StatelessWidget {
                       "Notifications",
                       style: TextStyle(
                           color: AppColor.black,
-                          fontSize: 20,
+                          fontSize: 22,
                           fontWeight: FontWeight.w400),
                     ),
                     Text(
                       "Configure alert preferences",
                       style: TextStyle(
                           color: AppColor.gray,
-                          fontSize: 14,
+                          fontSize: 16,
                           fontWeight: FontWeight.w400),
                     ),
                   ],
@@ -86,8 +84,6 @@ class PreferencesWidget extends StatelessWidget {
           height: 10,
         ),
         Container(
-          width: 400,
-          height: 115,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(16),
               boxShadow: [
@@ -123,14 +119,14 @@ class PreferencesWidget extends StatelessWidget {
                       "Appearance",
                       style: TextStyle(
                           color: AppColor.black,
-                          fontSize: 20,
+                          fontSize: 22,
                           fontWeight: FontWeight.w400),
                     ),
                     Text(
                       "Light mode (Default)",
                       style: TextStyle(
                           color: AppColor.gray,
-                          fontSize: 14,
+                          fontSize: 16,
                           fontWeight: FontWeight.w400),
                     ),
                   ],

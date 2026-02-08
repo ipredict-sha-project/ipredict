@@ -11,7 +11,6 @@ class VibrationSensorWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Container(
-        width: 400,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16),
             boxShadow: [
@@ -31,23 +30,24 @@ class VibrationSensorWidget extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  Row(
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Vibration Sensor',
+                        'Vibration Sensor (ADXL345)',
                         style: TextStyle(
                             color: AppColor.black,
-                            fontSize: 15,
+                            fontSize: 20,
                             fontWeight: FontWeight.w400),
                       ),
                       SizedBox(
-                        width: 5,
+                        width: 10,
                       ),
                       Text(
-                        '(ADXL345)',
+                        'Measurement: Acceleration (g)',
                         style: TextStyle(
                             color: AppColor.gray,
-                            fontSize: 12,
+                            fontSize: 15,
                             fontWeight: FontWeight.w400),
                       ),
                     ],
@@ -70,10 +70,11 @@ class VibrationSensorWidget extends StatelessWidget {
                   )
                 ],
               ),
+              SizedBox(height: 20,),
               Column(
                 children: [
                   Container(
-                    width: 227,
+                    width: 400,
                     padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                     decoration: BoxDecoration(
                         color: AppColor.gray_background,
@@ -86,17 +87,17 @@ class VibrationSensorWidget extends StatelessWidget {
                           'Sensor ID',
                           style: TextStyle(
                               color: AppColor.gray,
-                              fontSize: 12,
+                              fontSize: 15,
                               fontWeight: FontWeight.w400),
                         ),
                         SizedBox(
                           height: 8,
                         ),
                         Text(
-                          'ADXL345-006',
+                          'ADXL345-005',
                           style: TextStyle(
                               color: AppColor.black,
-                              fontSize: 14,
+                              fontSize: 15,
                               fontWeight: FontWeight.w400),
                         )
                       ],
@@ -106,7 +107,7 @@ class VibrationSensorWidget extends StatelessWidget {
                     height: 10,
                   ),
                   Container(
-                    width: 227,
+                    width: 400,
                     padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                     decoration: BoxDecoration(
                         color: AppColor.blue.withValues(alpha: 0.2),
@@ -119,7 +120,7 @@ class VibrationSensorWidget extends StatelessWidget {
                           'Location',
                           style: TextStyle(
                               color: AppColor.gray,
-                              fontSize: 12,
+                              fontSize: 15,
                               fontWeight: FontWeight.w400),
                         ),
                         SizedBox(
@@ -129,7 +130,7 @@ class VibrationSensorWidget extends StatelessWidget {
                           'Turbine Unit 1 - Side Panel',
                           style: TextStyle(
                               color: AppColor.black,
-                              fontSize: 14,
+                              fontSize: 15,
                               fontWeight: FontWeight.w400),
                         )
                       ],
@@ -139,7 +140,7 @@ class VibrationSensorWidget extends StatelessWidget {
                     height: 10,
                   ),
                   Container(
-                    width: 227,
+                    width: 400,
                     padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                     decoration: BoxDecoration(
                         color: AppColor.gray_background,
@@ -152,7 +153,7 @@ class VibrationSensorWidget extends StatelessWidget {
                           'Last Update',
                           style: TextStyle(
                               color: AppColor.gray,
-                              fontSize: 12,
+                              fontSize: 15,
                               fontWeight: FontWeight.w400),
                         ),
                         SizedBox(
@@ -162,7 +163,7 @@ class VibrationSensorWidget extends StatelessWidget {
                           '⏱️ 4 mins ago',
                           style: TextStyle(
                               color: AppColor.black,
-                              fontSize: 14,
+                              fontSize: 15,
                               fontWeight: FontWeight.w400),
                         )
                       ],
@@ -176,12 +177,23 @@ class VibrationSensorWidget extends StatelessWidget {
               SizedBox(
                 height: 15,
               ),
-              Text(
-                '2.8 g',
-                style: TextStyle(
-                    color: AppColor.black,
-                    fontSize: 48,
-                    fontWeight: FontWeight.w400),
+              Row(
+                children: [
+                  Text(
+                    '2.8',
+                    style: TextStyle(
+                        color: AppColor.black,
+                        fontSize: 48,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  Text(
+                    'g',
+                    style: TextStyle(
+                        color: AppColor.gray,
+                        fontSize: 48,
+                        fontWeight: FontWeight.w400),
+                  )
+                ],
               ),
               SizedBox(
                 height: 18,
@@ -202,200 +214,6 @@ class VibrationSensorWidget extends StatelessWidget {
               ),
               SizedBox(
                 height: 18,
-              ),
-              Container(
-                child: SfSparkLineChart.custom(
-                  //Enable the trackball
-                  trackball: SparkChartTrackball(
-                    activationMode: SparkChartActivationMode.tap,
-                  ),
-                  //Enable marker
-                  marker: SparkChartMarker(
-                    displayMode: SparkChartMarkerDisplayMode.all,
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Analytics History'.toUpperCase(),
-                    style: TextStyle(
-                        color: AppColor.gray,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400),
-                  ),
-                  SizedBox(
-                    height: 16,
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                        color: AppColor.gray.withValues(alpha: 0.1),
-                        borderRadius: BorderRadius.circular(16)),
-                    child: DataTable(columnSpacing: 30, columns: [
-                      DataColumn(
-                        label: Text(
-                          'Period',
-                          style: TextStyle(
-                              color: AppColor.gray,
-                              fontWeight: FontWeight.w400,
-                              fontSize: 14),
-                        ),
-                      ),
-                      DataColumn(
-                        label: Text(
-                          'Average',
-                          style: TextStyle(
-                              color: AppColor.gray,
-                              fontWeight: FontWeight.w400,
-                              fontSize: 14),
-                        ),
-                      ),
-                      DataColumn(
-                        label: Text(
-                          'Max',
-                          style: TextStyle(
-                              color: AppColor.gray,
-                              fontWeight: FontWeight.w400,
-                              fontSize: 14),
-                        ),
-                      ),
-                      DataColumn(
-                        label: Text(
-                          'Min',
-                          style: TextStyle(
-                              color: AppColor.gray,
-                              fontWeight: FontWeight.w400,
-                              fontSize: 14),
-                        ),
-                      ),
-                    ], rows: [
-                      DataRow(cells: [
-                        DataCell(Text(
-                          'Today',
-                          style: TextStyle(
-                              color: AppColor.gray,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400),
-                        )),
-                        DataCell(Text(
-                          '2.3 g',
-                          style: TextStyle(
-                              color: AppColor.gray,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400),
-                        )),
-                        DataCell(Text(
-                          '3.0 g',
-                          style: TextStyle(
-                              color: AppColor.gray,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400),
-                        )),
-                        DataCell(Text(
-                          '1.4 g',
-                          style: TextStyle(
-                              color: AppColor.gray,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400),
-                        )),
-                      ]),
-                      DataRow(cells: [
-                        DataCell(Text(
-                          'Yesterday',
-                          style: TextStyle(
-                              color: AppColor.gray,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400),
-                        )),
-                        DataCell(Text(
-                          '1.8 g',
-                          style: TextStyle(
-                              color: AppColor.gray,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400),
-                        )),
-                        DataCell(Text(
-                          '2.4 g',
-                          style: TextStyle(
-                              color: AppColor.gray,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400),
-                        )),
-                        DataCell(Text(
-                          '1.2 g',
-                          style: TextStyle(
-                              color: AppColor.gray,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400),
-                        )),
-                      ]),
-                      DataRow(cells: [
-                        DataCell(Text(
-                          'Past 3 Days',
-                          style: TextStyle(
-                              color: AppColor.gray,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400),
-                        )),
-                        DataCell(Text(
-                          '2.0 g',
-                          style: TextStyle(
-                              color: AppColor.gray,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400),
-                        )),
-                        DataCell(Text(
-                          '2.8 g',
-                          style: TextStyle(
-                              color: AppColor.gray,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400),
-                        )),
-                        DataCell(Text(
-                          '1.1 g',
-                          style: TextStyle(
-                              color: AppColor.gray,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400),
-                        )),
-                      ]),
-                      DataRow(cells: [
-                        DataCell(Text(
-                          'Past Week',
-                          style: TextStyle(
-                              color: AppColor.gray,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400),
-                        )),
-                        DataCell(Text(
-                          '1.6 g',
-                          style: TextStyle(
-                              color: AppColor.gray,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400),
-                        )),
-                        DataCell(Text(
-                          '2.5 g',
-                          style: TextStyle(
-                              color: AppColor.gray,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400),
-                        )),
-                        DataCell(Text(
-                          '0.9 g',
-                          style: TextStyle(
-                              color: AppColor.gray,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400),
-                        )),
-                      ]),
-                    ]),
-                  )
-                ],
               ),
             ],
           ),

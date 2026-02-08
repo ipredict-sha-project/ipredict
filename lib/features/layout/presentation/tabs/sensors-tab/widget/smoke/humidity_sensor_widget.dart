@@ -4,8 +4,8 @@ import 'package:syncfusion_flutter_charts/sparkcharts.dart';
 
 import '../../../../../../../core/theme/app_color.dart';
 
-class TemperatureSensorWidget extends StatelessWidget {
-  const TemperatureSensorWidget({super.key});
+class HumiditySensorWidget extends StatelessWidget {
+  const HumiditySensorWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -34,17 +34,17 @@ class TemperatureSensorWidget extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Temperature Sensor (BME680)',
+                        'Humidity Sensor (BME680)',
                         style: TextStyle(
                             color: AppColor.black,
                             fontSize: 20,
                             fontWeight: FontWeight.w400),
                       ),
                       SizedBox(
-                        height: 10,
+                        width: 10,
                       ),
                       Text(
-                        'Measurement: Celsius (°C)',
+                        'Measurement: Relative Humidity (%)',
                         style: TextStyle(
                             color: AppColor.gray,
                             fontSize: 15,
@@ -54,7 +54,7 @@ class TemperatureSensorWidget extends StatelessWidget {
                   ),
                   Spacer(),
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 22, vertical: 12),
+                    padding: EdgeInsets.symmetric(horizontal: 18, vertical: 18),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(16),
                         boxShadow: [
@@ -66,15 +66,12 @@ class TemperatureSensorWidget extends StatelessWidget {
                         ],
                         color: AppColor.gray_background.withValues(alpha: 0.9),
                         border: Border.all(color: AppColor.gray_background)),
-                    child: SvgPicture.asset('assets/icons/Temperature.svg'),
+                    child: SvgPicture.asset('assets/icons/Humidity.svg'),
                   )
                 ],
               ),
-              SizedBox(
-                height: 20,
-              ),
+              SizedBox(height: 20,),
               Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
                     width: 400,
@@ -97,7 +94,7 @@ class TemperatureSensorWidget extends StatelessWidget {
                           height: 8,
                         ),
                         Text(
-                          'BME680-T-001',
+                          'BME680-H-002',
                           style: TextStyle(
                               color: AppColor.black,
                               fontSize: 15,
@@ -183,14 +180,14 @@ class TemperatureSensorWidget extends StatelessWidget {
               Row(
                 children: [
                   Text(
-                    '28.6',
+                    '65',
                     style: TextStyle(
                         color: AppColor.black,
                         fontSize: 48,
                         fontWeight: FontWeight.bold),
                   ),
                   Text(
-                    '°C',
+                    '%',
                     style: TextStyle(
                         color: AppColor.gray,
                         fontSize: 48,
@@ -204,13 +201,13 @@ class TemperatureSensorWidget extends StatelessWidget {
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 27, vertical: 15),
                 decoration: BoxDecoration(
-                    color: AppColor.green.withValues(alpha: 0.1),
+                    color: AppColor.red.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(26),
-                    border: Border.all(color: AppColor.green)),
+                    border: Border.all(color: AppColor.red)),
                 child: Text(
-                  'Normal',
+                  'Critical',
                   style: TextStyle(
-                      color: AppColor.green,
+                      color: AppColor.red,
                       fontSize: 14,
                       fontWeight: FontWeight.w400),
                 ),

@@ -9,8 +9,6 @@ class SystemHealthWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 400,
-      height: 170,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
           boxShadow: [
@@ -22,75 +20,101 @@ class SystemHealthWidget extends StatelessWidget {
           ],
           color: AppColor.white,
           border: Border.all(color: AppColor.gray_background)),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              CircularPercentIndicator(
-                radius: 60.0,
-                lineWidth: 10,
-                percent: 0.87,
-                center: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 41),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                CircularPercentIndicator(
+                  radius: 80,
+                  lineWidth: 10,
+                  percent: 0.87,
+                  center: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        '87%',
+                        style: TextStyle(
+                            color: AppColor.black,
+                            fontSize: 50,
+                            fontWeight: FontWeight.w400),
+                      ),
+                      Text(
+                        'Good',
+                        style: TextStyle(
+                            color: AppColor.blue,
+                            fontSize: 20,
+                            fontWeight: FontWeight.w400),
+                      )
+                    ],
+                  ),
+                  progressColor: AppColor.blue,
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      '87%',
+                      'System Health',
                       style: TextStyle(
                           color: AppColor.black,
-                          fontSize: 36,
+                          fontSize: 25,
                           fontWeight: FontWeight.w400),
                     ),
                     Text(
                       'Good',
                       style: TextStyle(
-                          color: AppColor.gray,
-                          fontSize: 14,
+                          color: AppColor.blue,
+                          fontSize: 35,
                           fontWeight: FontWeight.w400),
-                    )
-                  ],
-                ),
-                progressColor: AppColor.blue,
-              ),
-              Column(
-                children: [
-                  Text(
-                    'System Health',
-                    style: TextStyle(
-                        color: AppColor.black,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w400),
-                  ),
-                  Text(
-                    'Good',
-                    style: TextStyle(
-                        color: AppColor.blue,
-                        fontSize: 28,
-                        fontWeight: FontWeight.w400),
-                  ),
-                  Text.rich(TextSpan(
-                      text: 'Status',
+                    ),
+                    Text(
+                      'All systems operating normally',
                       style: TextStyle(
                           color: AppColor.gray,
                           fontSize: 16,
-                          fontWeight: FontWeight.w400,
-                          decorationColor: AppColor.gray),
-                      children: [
-                        TextSpan(
-                          text: ' Stable',
-                          style: TextStyle(
-                              color: AppColor.blue,
-                              fontSize: 16,
-                              fontWeight: FontWeight.w400,
-                              decorationColor: AppColor.blue),
-                        )
-                      ])),
-                ],
-              )
-            ],
-          ),
-        ],
+                          fontWeight: FontWeight.w400),
+                    ),
+                    SizedBox(height: 20,),
+                    Container(
+                      padding: EdgeInsets.symmetric(vertical: 8 , horizontal: 26),
+                        decoration: BoxDecoration(
+                            color: AppColor.blue.withValues(alpha: 0.1),
+                            borderRadius: BorderRadius.circular(16),
+                            border: Border.all(color: AppColor.blue)),
+                      child: Row(
+                        children: [
+                          Text('Status: ' , style: TextStyle(color: AppColor.blue , fontSize: 18 , fontWeight: FontWeight.w400),),
+                          Text('Good' , style: TextStyle(color: AppColor.blue , fontSize: 18 , fontWeight: FontWeight.w400),)
+                        ],
+                      ),
+                    ),
+                    
+                    // Text.rich(TextSpan(
+                    //     text: 'Status',
+                    //     style: TextStyle(
+                    //         color: AppColor.gray,
+                    //         fontSize: 20,
+                    //         fontWeight: FontWeight.w400,
+                    //         decorationColor: AppColor.gray),
+                    //     children: [
+                    //       TextSpan(
+                    //         text: ' Stable',
+                    //         style: TextStyle(
+                    //             color: AppColor.blue,
+                    //             fontSize: 20,
+                    //             fontWeight: FontWeight.w400,
+                    //             decorationColor: AppColor.blue),
+                    //       )
+                    //     ])),
+                  ],
+                )
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

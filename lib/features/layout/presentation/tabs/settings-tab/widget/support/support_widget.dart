@@ -15,15 +15,13 @@ class SupportWidget extends StatelessWidget {
           "Support",
           style: TextStyle(
               color: AppColor.gray,
-              fontSize: 16,
+              fontSize: 20,
               fontWeight: FontWeight.w400),
         ),
         SizedBox(
           height: 30,
         ),
         Container(
-          width: 400,
-          height: 115,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(16),
               boxShadow: [
@@ -59,14 +57,14 @@ class SupportWidget extends StatelessWidget {
                       "Help & Support",
                       style: TextStyle(
                           color: AppColor.black,
-                          fontSize: 20,
+                          fontSize: 22,
                           fontWeight: FontWeight.w400),
                     ),
                     Text(
                       "Get help and contact us",
                       style: TextStyle(
                           color: AppColor.gray,
-                          fontSize: 14,
+                          fontSize: 16,
                           fontWeight: FontWeight.w400),
                     ),
                   ],
@@ -86,8 +84,6 @@ class SupportWidget extends StatelessWidget {
           height: 10,
         ),
         Container(
-          width: 400,
-          height: 115,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(16),
               boxShadow: [
@@ -123,14 +119,14 @@ class SupportWidget extends StatelessWidget {
                       "About iPredict",
                       style: TextStyle(
                           color: AppColor.black,
-                          fontSize: 20,
+                          fontSize: 22,
                           fontWeight: FontWeight.w400),
                     ),
                     Text(
                       "Version 2.1.0",
                       style: TextStyle(
                           color: AppColor.gray,
-                          fontSize: 14,
+                          fontSize: 16,
                           fontWeight: FontWeight.w400),
                     ),
                   ],

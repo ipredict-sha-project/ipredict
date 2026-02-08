@@ -11,7 +11,6 @@ class SoundSensorWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Container(
-        width: 400,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16),
             boxShadow: [
@@ -31,23 +30,24 @@ class SoundSensorWidget extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  Row(
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Sound Sensor',
+                        'Sound Sensor (KY-038)',
                         style: TextStyle(
                             color: AppColor.black,
-                            fontSize: 15,
+                            fontSize: 20,
                             fontWeight: FontWeight.w400),
                       ),
                       SizedBox(
-                        width: 5,
+                        width: 10,
                       ),
                       Text(
-                        '(KY-038)',
+                        'Measurement: Frequency (Hz)',
                         style: TextStyle(
                             color: AppColor.gray,
-                            fontSize: 12,
+                            fontSize: 15,
                             fontWeight: FontWeight.w400),
                       ),
                     ],
@@ -70,10 +70,11 @@ class SoundSensorWidget extends StatelessWidget {
                   )
                 ],
               ),
+              SizedBox(height: 20,),
               Column(
                 children: [
                   Container(
-                    width: 227,
+                    width: 400,
                     padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                     decoration: BoxDecoration(
                         color: AppColor.gray_background,
@@ -86,17 +87,17 @@ class SoundSensorWidget extends StatelessWidget {
                           'Sensor ID',
                           style: TextStyle(
                               color: AppColor.gray,
-                              fontSize: 12,
+                              fontSize: 15,
                               fontWeight: FontWeight.w400),
                         ),
                         SizedBox(
                           height: 8,
                         ),
                         Text(
-                          'KY038-003',
+                          'KY038-004',
                           style: TextStyle(
                               color: AppColor.black,
-                              fontSize: 14,
+                              fontSize: 15,
                               fontWeight: FontWeight.w400),
                         )
                       ],
@@ -106,7 +107,7 @@ class SoundSensorWidget extends StatelessWidget {
                     height: 10,
                   ),
                   Container(
-                    width: 227,
+                    width: 400,
                     padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                     decoration: BoxDecoration(
                         color: AppColor.blue.withValues(alpha: 0.2),
@@ -119,7 +120,7 @@ class SoundSensorWidget extends StatelessWidget {
                           'Location',
                           style: TextStyle(
                               color: AppColor.gray,
-                              fontSize: 12,
+                              fontSize: 15,
                               fontWeight: FontWeight.w400),
                         ),
                         SizedBox(
@@ -129,7 +130,7 @@ class SoundSensorWidget extends StatelessWidget {
                           'Assembly Line 3 - Station B',
                           style: TextStyle(
                               color: AppColor.black,
-                              fontSize: 14,
+                              fontSize: 15,
                               fontWeight: FontWeight.w400),
                         )
                       ],
@@ -139,7 +140,7 @@ class SoundSensorWidget extends StatelessWidget {
                     height: 10,
                   ),
                   Container(
-                    width: 227,
+                    width: 400,
                     padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                     decoration: BoxDecoration(
                         color: AppColor.gray_background,
@@ -152,7 +153,7 @@ class SoundSensorWidget extends StatelessWidget {
                           'Last Update',
                           style: TextStyle(
                               color: AppColor.gray,
-                              fontSize: 12,
+                              fontSize: 15,
                               fontWeight: FontWeight.w400),
                         ),
                         SizedBox(
@@ -162,7 +163,7 @@ class SoundSensorWidget extends StatelessWidget {
                           '⏱️ 1 min ago',
                           style: TextStyle(
                               color: AppColor.black,
-                              fontSize: 14,
+                              fontSize: 15,
                               fontWeight: FontWeight.w400),
                         )
                       ],
@@ -176,12 +177,23 @@ class SoundSensorWidget extends StatelessWidget {
               SizedBox(
                 height: 15,
               ),
-              Text(
-                '45 dB',
-                style: TextStyle(
-                    color: AppColor.black,
-                    fontSize: 48,
-                    fontWeight: FontWeight.w400),
+              Row(
+                children: [
+                  Text(
+                    '1200',
+                    style: TextStyle(
+                        color: AppColor.black,
+                        fontSize: 48,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  Text(
+                    'Hz',
+                    style: TextStyle(
+                        color: AppColor.gray,
+                        fontSize: 48,
+                        fontWeight: FontWeight.w400),
+                  )
+                ],
               ),
               SizedBox(
                 height: 18,
@@ -202,200 +214,6 @@ class SoundSensorWidget extends StatelessWidget {
               ),
               SizedBox(
                 height: 18,
-              ),
-              Container(
-                child: SfSparkLineChart.custom(
-                  //Enable the trackball
-                  trackball: SparkChartTrackball(
-                    activationMode: SparkChartActivationMode.tap,
-                  ),
-                  //Enable marker
-                  marker: SparkChartMarker(
-                    displayMode: SparkChartMarkerDisplayMode.all,
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Analytics History'.toUpperCase(),
-                    style: TextStyle(
-                        color: AppColor.gray,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400),
-                  ),
-                  SizedBox(
-                    height: 16,
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                        color: AppColor.gray.withValues(alpha: 0.1),
-                        borderRadius: BorderRadius.circular(16)),
-                    child: DataTable(columnSpacing: 30, columns: [
-                      DataColumn(
-                        label: Text(
-                          'Period',
-                          style: TextStyle(
-                              color: AppColor.gray,
-                              fontWeight: FontWeight.w400,
-                              fontSize: 14),
-                        ),
-                      ),
-                      DataColumn(
-                        label: Text(
-                          'Average',
-                          style: TextStyle(
-                              color: AppColor.gray,
-                              fontWeight: FontWeight.w400,
-                              fontSize: 14),
-                        ),
-                      ),
-                      DataColumn(
-                        label: Text(
-                          'Max',
-                          style: TextStyle(
-                              color: AppColor.gray,
-                              fontWeight: FontWeight.w400,
-                              fontSize: 14),
-                        ),
-                      ),
-                      DataColumn(
-                        label: Text(
-                          'Min',
-                          style: TextStyle(
-                              color: AppColor.gray,
-                              fontWeight: FontWeight.w400,
-                              fontSize: 14),
-                        ),
-                      ),
-                    ], rows: [
-                      DataRow(cells: [
-                        DataCell(Text(
-                          'Today',
-                          style: TextStyle(
-                              color: AppColor.gray,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400),
-                        )),
-                        DataCell(Text(
-                          '44 dB',
-                          style: TextStyle(
-                              color: AppColor.gray,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400),
-                        )),
-                        DataCell(Text(
-                          '48 dB',
-                          style: TextStyle(
-                              color: AppColor.gray,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400),
-                        )),
-                        DataCell(Text(
-                          '40 dB',
-                          style: TextStyle(
-                              color: AppColor.gray,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400),
-                        )),
-                      ]),
-                      DataRow(cells: [
-                        DataCell(Text(
-                          'Yesterday',
-                          style: TextStyle(
-                              color: AppColor.gray,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400),
-                        )),
-                        DataCell(Text(
-                          '43 dB',
-                          style: TextStyle(
-                              color: AppColor.gray,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400),
-                        )),
-                        DataCell(Text(
-                          '47 dB',
-                          style: TextStyle(
-                              color: AppColor.gray,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400),
-                        )),
-                        DataCell(Text(
-                          '39 dB',
-                          style: TextStyle(
-                              color: AppColor.gray,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400),
-                        )),
-                      ]),
-                      DataRow(cells: [
-                        DataCell(Text(
-                          'Past 3 Days',
-                          style: TextStyle(
-                              color: AppColor.gray,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400),
-                        )),
-                        DataCell(Text(
-                          '45 dB',
-                          style: TextStyle(
-                              color: AppColor.gray,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400),
-                        )),
-                        DataCell(Text(
-                          '50 dB',
-                          style: TextStyle(
-                              color: AppColor.gray,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400),
-                        )),
-                        DataCell(Text(
-                          '38 dB',
-                          style: TextStyle(
-                              color: AppColor.gray,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400),
-                        )),
-                      ]),
-                      DataRow(cells: [
-                        DataCell(Text(
-                          'Past Week',
-                          style: TextStyle(
-                              color: AppColor.gray,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400),
-                        )),
-                        DataCell(Text(
-                          '44 dB',
-                          style: TextStyle(
-                              color: AppColor.gray,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400),
-                        )),
-                        DataCell(Text(
-                          '52 dB',
-                          style: TextStyle(
-                              color: AppColor.gray,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400),
-                        )),
-                        DataCell(Text(
-                          '37 dB',
-                          style: TextStyle(
-                              color: AppColor.gray,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400),
-                        )),
-                      ]),
-                    ]),
-                  )
-                ],
               ),
             ],
           ),

@@ -9,7 +9,6 @@ class ProfileWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 400,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
           boxShadow: [
@@ -22,14 +21,15 @@ class ProfileWidget extends StatelessWidget {
           color: AppColor.white,
           border: Border.all(color: AppColor.gray_background)),
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 22, vertical: 22),
+        padding: EdgeInsets.symmetric(horizontal: 21, vertical: 15),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
               children: [
                 Container(
-                  width: 60,
-                  height: 60,
+                  padding: EdgeInsets.all(20),
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     color: AppColor.blue,
@@ -39,7 +39,7 @@ class ProfileWidget extends StatelessWidget {
                       "MH",
                       style: TextStyle(
                           color: AppColor.white,
-                          fontSize: 20,
+                          fontSize: 25,
                           fontWeight: FontWeight.w400),
                     ),
                   ),
@@ -54,15 +54,14 @@ class ProfileWidget extends StatelessWidget {
                       "Mohamed Hany",
                       style: TextStyle(
                           color: AppColor.black,
-                          fontSize: 17,
+                          fontSize: 20,
                           fontWeight: FontWeight.w400),
                     ),
                     SizedBox(
                       height: 8,
                     ),
                     Container(
-                      width: 49,
-                      height: 22,
+                      padding: EdgeInsets.symmetric(vertical: 10 , horizontal: 10),
                       decoration: BoxDecoration(
                         color: AppColor.blue,
                         borderRadius: BorderRadius.circular(20),
@@ -72,7 +71,7 @@ class ProfileWidget extends StatelessWidget {
                           "Admin",
                           style: TextStyle(
                               color: AppColor.white,
-                              fontSize: 10,
+                              fontSize: 15,
                               fontWeight: FontWeight.w400),
                         ),
                       ),
@@ -84,7 +83,7 @@ class ProfileWidget extends StatelessWidget {
                       "mohamed.hany@ipredict.io",
                       style: TextStyle(
                           color: AppColor.gray,
-                          fontSize: 12,
+                          fontSize: 17,
                           fontWeight: FontWeight.w400),
                     ),
                     SizedBox(

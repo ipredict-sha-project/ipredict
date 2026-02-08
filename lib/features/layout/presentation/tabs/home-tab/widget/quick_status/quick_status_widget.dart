@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:ipredict/core/routes_manager/routes/app_route_name.dart';
 
 import '../../../../../../../core/theme/app_color.dart';
 
@@ -8,173 +9,281 @@ class QuickStatusWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 400,
-      height: 250,
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(16),
-          boxShadow: [
-            BoxShadow(
-                color: AppColor.gray.withValues(alpha: 0.5),
-                spreadRadius: 2,
-                blurRadius: 8,
-                offset: Offset(0, 4))
-          ],
-          color: AppColor.white,
-          border: Border.all(color: AppColor.gray_background)),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 21),
-            child: Text(
-              'Quick Status',
-              style: TextStyle(
-                  color: AppColor.black,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w400),
-            ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    return InkWell(
+      onTap: () {
+        Navigator.pushNamed(context, AppRouteName.sensor);
+      },
+      child: Container(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                child: Row(
-                  children: [
-                    SvgPicture.asset('assets/icons/Temperature.svg'),
-                    Column(
-                      children: [
-                        Text(
-                          'Temperature',
-                          style: TextStyle(
-                              color: AppColor.gray,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400),
-                        ),
-                        Text(
-                          '28.6°C',
-                          style: TextStyle(
-                              color: AppColor.black,
-                              fontSize: 16,
-                              fontWeight: FontWeight.w400),
-                        ),
-                        Text(
-                          'Normal',
-                          style: TextStyle(
-                              color: AppColor.green,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400),
-                        ),
-                      ],
-                    )
-                  ],
-                ),
+              Text(
+                'Quick Status',
+                style: TextStyle(
+                    color: AppColor.black,
+                    fontSize: 25,
+                    fontWeight: FontWeight.w400),
               ),
-              Container(
-                child: Row(
-                  children: [
-                    SvgPicture.asset('assets/icons/Humidity.svg'),
-                    Column(
+              Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(16),
+                        boxShadow: [
+                          BoxShadow(
+                              color: AppColor.gray.withValues(alpha: 0.5),
+                              spreadRadius: 2,
+                              blurRadius: 8,
+                              offset: Offset(0, 4))
+                        ],
+                        color: AppColor.white,
+                        border: Border.all(color: AppColor.gray_background)),
+                    child: Row(
                       children: [
-                        Text(
-                          'Humidity',
-                          style: TextStyle(
-                              color: AppColor.gray,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400),
+                        Container(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 22, vertical: 12),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(16),
+                                boxShadow: [
+                                  BoxShadow(
+                                      color:
+                                          AppColor.gray.withValues(alpha: 0.5),
+                                      spreadRadius: 2,
+                                      blurRadius: 8,
+                                      offset: Offset(0, 4))
+                                ],
+                                color: AppColor.gray_background
+                                    .withValues(alpha: 0.9),
+                                border: Border.all(
+                                    color: AppColor.gray_background)),
+                            child: SvgPicture.asset(
+                              'assets/icons/Temperature.svg',
+                              width: 20,
+                            )),
+                        SizedBox(
+                          width: 20,
                         ),
-                        Text(
-                          '41%',
-                          style: TextStyle(
-                              color: AppColor.black,
-                              fontSize: 16,
-                              fontWeight: FontWeight.w400),
-                        ),
-                        Text(
-                          'Stable',
-                          style: TextStyle(
-                              color: AppColor.green,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400),
-                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Temperature',
+                              style: TextStyle(
+                                  color: AppColor.gray,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w400),
+                            ),
+                            Text(
+                              '28.6°C',
+                              style: TextStyle(
+                                  color: AppColor.black,
+                                  fontSize: 25,
+                                  fontWeight: FontWeight.w400),
+                            ),
+                            SizedBox(
+                              height: 5,
+                            ),
+                            Container(
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 8, horizontal: 18),
+                              decoration: BoxDecoration(
+                                  color: AppColor.blue.withValues(alpha: 0.1),
+                                  borderRadius: BorderRadius.circular(16),
+                                  border: Border.all(color: AppColor.blue)),
+                              child: Text(
+                                'Normal',
+                                style: TextStyle(
+                                    color: AppColor.blue,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w400),
+                              ),
+                            ),
+                          ],
+                        )
                       ],
-                    )
-                  ],
-                ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(16),
+                        boxShadow: [
+                          BoxShadow(
+                              color: AppColor.gray.withValues(alpha: 0.5),
+                              spreadRadius: 2,
+                              blurRadius: 8,
+                              offset: Offset(0, 4))
+                        ],
+                        color: AppColor.white,
+                        border: Border.all(color: AppColor.gray_background)),
+                    child: Row(
+                      children: [
+                        Container(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 14, vertical: 16),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(16),
+                                boxShadow: [
+                                  BoxShadow(
+                                      color:
+                                          AppColor.gray.withValues(alpha: 0.5),
+                                      spreadRadius: 2,
+                                      blurRadius: 8,
+                                      offset: Offset(0, 4))
+                                ],
+                                color: AppColor.gray_background
+                                    .withValues(alpha: 0.9),
+                                border: Border.all(
+                                    color: AppColor.gray_background)),
+                            child: SvgPicture.asset(
+                              'assets/icons/smoke.svg',
+                              width: 45,
+                            )),
+                        SizedBox(
+                          width: 20,
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Vibration',
+                              style: TextStyle(
+                                  color: AppColor.gray,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w400),
+                            ),
+                            Text(
+                              '0.09 g',
+                              style: TextStyle(
+                                  color: AppColor.black,
+                                  fontSize: 25,
+                                  fontWeight: FontWeight.w400),
+                            ),
+                            SizedBox(
+                              height: 5,
+                            ),
+                            Container(
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 8, horizontal: 18),
+                              decoration: BoxDecoration(
+                                  color: AppColor.blue.withValues(alpha: 0.1),
+                                  borderRadius: BorderRadius.circular(16),
+                                  border: Border.all(color: AppColor.blue)),
+                              child: Text(
+                                'Normal',
+                                style: TextStyle(
+                                    color: AppColor.blue,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w400),
+                              ),
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(16),
+                        boxShadow: [
+                          BoxShadow(
+                              color: AppColor.gray.withValues(alpha: 0.5),
+                              spreadRadius: 2,
+                              blurRadius: 8,
+                              offset: Offset(0, 4))
+                        ],
+                        color: AppColor.white,
+                        border: Border.all(color: AppColor.gray_background)),
+                    child: Row(
+                      children: [
+                        Container(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 15, vertical: 16),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(16),
+                                boxShadow: [
+                                  BoxShadow(
+                                      color:
+                                      AppColor.gray.withValues(alpha: 0.5),
+                                      spreadRadius: 2,
+                                      blurRadius: 8,
+                                      offset: Offset(0, 4))
+                                ],
+                                color: AppColor.gray_background
+                                    .withValues(alpha: 0.9),
+                                border: Border.all(
+                                    color: AppColor.gray_background)),
+                            child: SvgPicture.asset(
+                              'assets/icons/warning.svg',
+                              width: 40,
+                            )),
+                        SizedBox(
+                          width: 20,
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Air Quality ',
+                              style: TextStyle(
+                                  color: AppColor.gray,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w400),
+                            ),
+                            Text(
+                              '210 IAQ',
+                              style: TextStyle(
+                                  color: AppColor.black,
+                                  fontSize: 25,
+                                  fontWeight: FontWeight.w400),
+                            ),
+                            SizedBox(
+                              height: 5,
+                            ),
+                            Container(
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 8, horizontal: 18),
+                              decoration: BoxDecoration(
+                                  color: AppColor.orange.withValues(alpha: 0.1),
+                                  borderRadius: BorderRadius.circular(16),
+                                  border: Border.all(color: AppColor.orange)),
+                              child: Text(
+                                'Warning',
+                                style: TextStyle(
+                                    color: AppColor.orange,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w400),
+                              ),
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                ],
               ),
             ],
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Container(
-                child: Row(
-                  children: [
-                    SvgPicture.asset('assets/icons/warning.svg'),
-                    Column(
-                      children: [
-                        Text(
-                          'Smoke Level',
-                          style: TextStyle(
-                              color: AppColor.gray,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400),
-                        ),
-                        Text(
-                          '210 ppm',
-                          style: TextStyle(
-                              color: AppColor.black,
-                              fontSize: 16,
-                              fontWeight: FontWeight.w400),
-                        ),
-                        Text(
-                          'Warning',
-                          style: TextStyle(
-                              color: AppColor.orange,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400),
-                        ),
-                      ],
-                    )
-                  ],
-                ),
-              ),
-              Container(
-                child: Row(
-                  children: [
-                    SvgPicture.asset('assets/icons/Vibration.svg'),
-                    Column(
-                      children: [
-                        Text(
-                          'Vibration',
-                          style: TextStyle(
-                              color: AppColor.gray,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400),
-                        ),
-                        Text(
-                          '0.09 g',
-                          style: TextStyle(
-                              color: AppColor.black,
-                              fontSize: 16,
-                              fontWeight: FontWeight.w400),
-                        ),
-                        Text(
-                          'Normal',
-                          style: TextStyle(
-                              color: AppColor.green,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400),
-                        ),
-                      ],
-                    )
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ],
+        ),
       ),
     );
   }

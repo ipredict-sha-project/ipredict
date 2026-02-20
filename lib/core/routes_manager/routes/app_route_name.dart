@@ -11,4 +11,5 @@ abstract class AppRouteName {
   static const String alerts = '/alert_layout';
   static const String setting = '/setting_layout';
   static const String sensor_details = '/sensor_details';
+  static const String alert_details = '/alert_details';
 }

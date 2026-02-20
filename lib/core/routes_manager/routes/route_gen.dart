@@ -7,6 +7,7 @@ import 'package:ipredict/features/layout/presentation/screens/layout_screen.dart
 import 'package:ipredict/features/layout/presentation/tabs/alerts-tab/screens/alerts_tab.dart';
 import 'package:ipredict/features/layout/presentation/tabs/devices-tab/screens/devices_tab.dart';
 import 'package:ipredict/features/layout/presentation/tabs/home-tab/screens/home_tab.dart';
+import 'package:ipredict/features/layout/presentation/tabs/sensors-tab/screens/sensors_details.dart';
 import 'package:ipredict/features/layout/presentation/tabs/sensors-tab/screens/sensors_tab.dart';
 import 'package:ipredict/features/layout/presentation/tabs/settings-tab/screens/settings_tab.dart';
 import 'package:ipredict/features/onboarding/presentation/screens/onboarding_screen.dart';
@@ -83,6 +84,12 @@ class RouteGen {
         return MaterialPageRoute(
           builder: (context) {
             return SettingsTab();
+          },
+        );
+        case AppRouteName.sensor_details:
+        return MaterialPageRoute(
+          builder: (context) {
+            return SensorsDetails();
           },
         );
 

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:icons_plus/icons_plus.dart';
+import 'package:ipredict/features/layout/presentation/tabs/alerts-tab/widget/alert_details_recommended_actions.dart';
+import 'package:ipredict/features/layout/presentation/tabs/alerts-tab/widget/alert_details_system_impact.dart';
+import 'package:ipredict/features/layout/presentation/tabs/alerts-tab/widget/alert_detils_root_cause_annlysis.dart';
 
 import '../../../../../../core/theme/app_color.dart';
 import '../../../widgets/appbar_widget.dart';
@@ -207,6 +210,11 @@ class AlertDetails extends StatelessWidget {
                         ),
                       ),
                       SizedBox(height: 20,),
+                      AlertDetilsRootCauseAnnlysis(),
+                      SizedBox(height: 20,),
+                      AlertDetailsSystemImpact(),
+                      SizedBox(height: 20,),
+                      AlertDetailsRecommendedActions(),
                       SizedBox(height: 40,)
 
                     ],

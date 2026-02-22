@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:ipredict/features/auth/presentation/screens/forget_password.dart';
 import 'package:ipredict/features/auth/presentation/screens/register_screen.dart';
 import 'package:ipredict/features/layout/presentation/screens/layout_screen.dart';
+import 'package:ipredict/features/layout/presentation/tabs/alerts-tab/screens/alert_details.dart';
 import 'package:ipredict/features/layout/presentation/tabs/alerts-tab/screens/alerts_tab.dart';
 import 'package:ipredict/features/layout/presentation/tabs/devices-tab/screens/devices_tab.dart';
 import 'package:ipredict/features/layout/presentation/tabs/home-tab/screens/home_tab.dart';
@@ -90,6 +91,12 @@ class RouteGen {
         return MaterialPageRoute(
           builder: (context) {
             return SensorsDetails();
+          },
+        );
+        case AppRouteName.alert_details:
+        return MaterialPageRoute(
+          builder: (context) {
+            return AlertDetails();
           },
         );
 

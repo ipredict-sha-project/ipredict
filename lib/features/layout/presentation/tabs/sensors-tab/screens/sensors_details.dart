@@ -118,7 +118,8 @@ class SensorsDetails extends StatelessWidget {
                                   )
                               ),
                               SizedBox(height: 20,),
-                              Text('Last updated: 2 seconds ago' , style: TextStyle(color: AppColor.gray , fontWeight: FontWeight.w400 , fontSize: 18),)
+                              Text('Last updated: 2 seconds ago' , style: TextStyle(color: AppColor.gray , fontWeight: FontWeight.w400 , fontSize: 18),),
+                              SizedBox(height: 20,)
                             ],
                           ),
                         ),

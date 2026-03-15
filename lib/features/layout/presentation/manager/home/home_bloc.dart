@@ -1,14 +1,19 @@
 import 'dart:async';
 import 'dart:math';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ipredict/features/layout/data/repo/home_repo.dart';
 
 import 'home_event.dart';
 import 'home_state.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
+  final HomeRepository repository = HomeRepository();
   Timer? _timer;
 
   final Random _random = Random();
+  double _temperature = 30;
+  double _vibration = 0.08;
+  double _airQuality = 180;
 
   HomeBloc() : super(HomeInitial()) {
     on<LoadHomeEvent>(_loadHome);
@@ -45,10 +50,15 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   Future<void> _generateData(
     Emitter<HomeState> emit,
   ) async {
+    /// TODO: Replace this mock data with repository.getDashboardData()
     try {
-      double temperature = 22 + _random.nextDouble() * 25;
-      double vibration = 0.03 + _random.nextDouble() * 0.3;
-      double airQuality = 120 + _random.nextDouble() * 200;
+      _temperature += (_random.nextDouble() - 0.5) * 4;
+      _vibration += (_random.nextDouble() - 0.5) * 0.04;
+      _airQuality += (_random.nextDouble() - 0.5) * 10;
+
+      double temperature = _temperature;
+      double vibration = _vibration;
+      double airQuality = _airQuality;
 
       double healthScore = _calculateHealth(
         temperature,
@@ -112,6 +122,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     return "Critical";
   }
 
+  /// Temporary alerts generator
+  /// TODO: Remove when alerts come from Firebase
   List<AlertModel> _generateAlerts(
     double temperature,
     double vibration,

@@ -3,15 +3,20 @@ import 'dart:math';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../data/repo/alerts_repo.dart';
 import '../../tabs/alerts-tab/module/alert_module.dart';
 
 import 'alerts_event.dart';
 import 'alerts_state.dart';
 
 class AlertsBloc extends Bloc<AlertsEvent, AlertsState> {
+  final AlertsRepository repository = AlertsRepository();
   Timer? _timer;
 
   final Random _random = Random();
+  double _temperature = 32;
+  double _vibration = 0.07;
+  double _airQuality = 180;
 
   AlertsBloc() : super(AlertsInitial()) {
     on<LoadAlertsEvent>(_loadAlerts);
@@ -28,9 +33,12 @@ class AlertsBloc extends Bloc<AlertsEvent, AlertsState> {
   void _startRealTime() {
     _timer = Timer.periodic(
       const Duration(seconds: 5),
-      (_) {
-        /// يظهر Alert جديد أحيانًا فقط
-        if (_random.nextDouble() < 0.4) {
+      (timer) {
+        _temperature += (_random.nextDouble() - 0.5) * 3;
+        _vibration += (_random.nextDouble() - 0.5) * 0.03;
+        _airQuality += (_random.nextDouble() - 0.5) * 10;
+
+        if (_temperature > 45 || _vibration > 0.25 || _airQuality > 280) {
           add(RefreshAlertsEvent());
         }
       },
@@ -41,6 +49,7 @@ class AlertsBloc extends Bloc<AlertsEvent, AlertsState> {
     LoadAlertsEvent event,
     Emitter<AlertsState> emit,
   ) async {
+    /// TODO: Replace with repository.getAlerts()
     emit(AlertsLoading());
 
     List<AlertModel> alerts = [];
@@ -125,31 +134,72 @@ class AlertsBloc extends Bloc<AlertsEvent, AlertsState> {
     }
   }
 
+  /// Temporary mock alert
+  /// TODO: Remove when Firebase connected
   AlertModel _createAlert() {
-    int type = _random.nextInt(3);
+    String status = "warning";
 
-    String status;
+    String title = "Sensor Alert";
 
-    if (type == 0) {
+    double value = 0;
+
+    double threshold = 0;
+
+    String unit = "";
+
+    String sensorName = "";
+
+    if (_temperature > 45) {
       status = "critical";
-    } else if (type == 1) {
+
+      title = "High Temperature";
+
+      value = _temperature;
+
+      threshold = 45;
+
+      unit = "°C";
+
+      sensorName = "Temperature Sensor";
+    } else if (_vibration > 0.25) {
       status = "warning";
+
+      title = "Abnormal Vibration";
+
+      value = _vibration;
+
+      threshold = 0.25;
+
+      unit = "g";
+
+      sensorName = "Vibration Sensor";
     } else {
-      status = "resolved";
+      status = "warning";
+
+      title = "Air Quality Warning";
+
+      value = _airQuality;
+
+      threshold = 280;
+
+      unit = "IAQ";
+
+      sensorName = "Air Quality Sensor";
     }
 
     return AlertModel(
-      title: "Temperature Alert",
-      description: "Server temperature exceeded safe limit",
-      sensorName: "Temperature Sensor",
-      sensorId: "TEMP-${_random.nextInt(100)}",
-      location: "Server Room A",
-      currentValue: 70 + _random.nextInt(20).toDouble(),
-      threshold: 70,
-      unit: "°C",
+      id: "AL-${_random.nextInt(99999)}",
+      title: title,
+      description: "Sensor exceeded safe threshold",
+      sensorName: sensorName,
+      sensorId: "S-${_random.nextInt(100)}",
+      location: "Data Center A",
+      currentValue: value,
+      threshold: threshold,
+      unit: unit,
       status: status,
       time: DateTime.now(),
-      resolvedBy: status == "resolved" ? "Operator" : null,
+      resolvedBy: null,
     );
   }
 

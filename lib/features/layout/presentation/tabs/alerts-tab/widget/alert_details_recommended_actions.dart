@@ -1,178 +1,111 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../../../core/theme/app_color.dart';
+import '../module/alert_module.dart';
 
 class AlertDetailsRecommendedActions extends StatelessWidget {
-  const AlertDetailsRecommendedActions({super.key});
+  final AlertModel alert;
+
+  const AlertDetailsRecommendedActions({
+    super.key,
+    required this.alert,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(16),
-          boxShadow: [
-            BoxShadow(
-                color: AppColor.gray.withValues(alpha: 0.5),
-                spreadRadius: 2,
-                blurRadius: 8,
-                offset: Offset(0, 4))
-          ],
-          color: AppColor.white,
-          border: Border.all(color: AppColor.gray_background)),
+        borderRadius: BorderRadius.circular(16),
+        color: AppColor.white,
+        border: Border.all(color: AppColor.gray_background),
+      ),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 21, vertical: 15),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            /// HEADER
             Row(
               children: [
                 Container(
-                    padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-                    decoration: BoxDecoration(
-                        color: AppColor.green.withValues(alpha: 0.1),
-                        borderRadius: BorderRadius.circular(16),
-                        border: Border.all(color: AppColor.green)),
-                    child: SvgPicture.asset('assets/icons/warning.svg' , color: AppColor.green, width: 20,)
+                  padding: const EdgeInsets.all(15),
+                  decoration: BoxDecoration(
+                    color: AppColor.green.withOpacity(.1),
+                    borderRadius: BorderRadius.circular(16),
+                    border: Border.all(color: AppColor.green),
+                  ),
+                  child: SvgPicture.asset(
+                    'assets/icons/security.svg',
+                    color: AppColor.green,
+                    width: 20,
+                  ),
                 ),
-                SizedBox(width: 10,),
+                const SizedBox(width: 10),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('Recommended Actions' , style: TextStyle(
+                  children: const [
+                    Text(
+                      'Recommended Actions',
+                      style: TextStyle(
                         fontSize: 22,
                         fontWeight: FontWeight.w400,
-                        color: AppColor.black
-                    ),),
-                    SizedBox(height: 5,),
-                    Text('Prioritized response plan' , style: TextStyle(
+                      ),
+                    ),
+                    SizedBox(height: 5),
+                    Text(
+                      'Prioritized response plan',
+                      style: TextStyle(
                         color: AppColor.gray,
                         fontSize: 15,
-                        fontWeight: FontWeight.w400
-                    ),)
+                      ),
+                    ),
                   ],
                 ),
               ],
             ),
-            SizedBox(height: 15,),
+
+            const SizedBox(height: 15),
+
             Container(
+              padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(16),
-                  boxShadow: [
-                    BoxShadow(
-                        color: AppColor.red.withValues(alpha: 0.1),
-                        spreadRadius: 2,
-                        blurRadius: 8,
-                        offset: Offset(0, 4))
-                  ],
-                  color: AppColor.red.withValues(alpha: 0.1),
-                  border: Border.all(color: AppColor.red)),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 21, vertical: 15),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        SvgPicture.asset('assets/icons/security.svg' , color: AppColor.red, width: 20,),
-                        SizedBox(width: 5,),
-                        Text('Immediate'.toUpperCase() , style: TextStyle(
-                            color: AppColor.red,
-                            fontSize: 20 ,
-                            fontWeight: FontWeight.w400
-                        ),)
-                      ],
-                    ),
-                    SizedBox(height: 5,),
-                    Text('Dispatch technician to inspect and replace HVAC air filters', style: TextStyle(
-                        color: AppColor.gray,
-                        fontSize: 15,
-                        fontWeight: FontWeight.w400
-                    ),)
-                  ],
-                ),
+                color: AppColor.red.withOpacity(.1),
+                borderRadius: BorderRadius.circular(16),
+                border: Border.all(color: AppColor.red),
+              ),
+              child: Text(
+                "Inspect ${alert.sensorName} sensor immediately.",
               ),
             ),
-            SizedBox(height: 15,),
+
+            const SizedBox(height: 10),
+
             Container(
+              padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(16),
-                  boxShadow: [
-                    BoxShadow(
-                        color: AppColor.orange.withValues(alpha: 0.1),
-                        spreadRadius: 2,
-                        blurRadius: 8,
-                        offset: Offset(0, 4))
-                  ],
-                  color: AppColor.orange.withValues(alpha: 0.1),
-                  border: Border.all(color: AppColor.orange)),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 21, vertical: 15),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        SvgPicture.asset('assets/icons/warning.svg' , color: AppColor.orange, width: 20,),
-                        SizedBox(width: 5,),
-                        Text('High'.toUpperCase() , style: TextStyle(
-                            color: AppColor.orange,
-                            fontSize: 20 ,
-                            fontWeight: FontWeight.w400
-                        ),)
-                      ],
-                    ),
-                    SizedBox(height: 5,),
-                    Text('Reduce server workload by 40% to lower heat generation', style: TextStyle(
-                        color: AppColor.gray,
-                        fontSize: 15,
-                        fontWeight: FontWeight.w400
-                    ),)
-                  ],
-                ),
+                color: AppColor.orange.withOpacity(.1),
+                borderRadius: BorderRadius.circular(16),
+                border: Border.all(color: AppColor.orange),
+              ),
+              child: Text(
+                "Reduce system load to prevent ${alert.unit} increase.",
               ),
             ),
-            SizedBox(height: 15,),
+
+            const SizedBox(height: 10),
+
             Container(
+              padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(16),
-                  boxShadow: [
-                    BoxShadow(
-                        color: AppColor.yellow.withValues(alpha: 0.1),
-                        spreadRadius: 2,
-                        blurRadius: 8,
-                        offset: Offset(0, 4))
-                  ],
-                  color: AppColor.yellow.withValues(alpha: 0.1),
-                  border: Border.all(color: AppColor.yellow)),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 21, vertical: 15),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        SvgPicture.asset('assets/icons/warning.svg' , color: AppColor.yellow, width: 20,),
-                        SizedBox(width: 5,),
-                        Text('Medium'.toUpperCase() , style: TextStyle(
-                            color: AppColor.yellow,
-                            fontSize: 20 ,
-                            fontWeight: FontWeight.w400
-                        ),)
-                      ],
-                    ),
-                    SizedBox(height: 5,),
-                    Text('Schedule full HVAC system diagnostic within 24 hours', style: TextStyle(
-                        color: AppColor.gray,
-                        fontSize: 15,
-                        fontWeight: FontWeight.w400
-                    ),)
-                  ],
-                ),
+                color: AppColor.yellow.withOpacity(.1),
+                borderRadius: BorderRadius.circular(16),
+                border: Border.all(color: AppColor.yellow),
+              ),
+              child: const Text(
+                "Schedule full system diagnostics within 24 hours.",
               ),
             ),
-            SizedBox(height: 10,)
           ],
         ),
       ),

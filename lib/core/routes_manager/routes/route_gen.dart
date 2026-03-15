@@ -93,15 +93,7 @@ class RouteGen {
             return SensorsDetails();
           },
         );
-        case AppRouteName.alert_details:
-        return MaterialPageRoute(
-          builder: (context) {
-            return AlertDetails();
-          },
-        );
-
-
-      default:
+        default:
         return MaterialPageRoute(
           builder: (context) {
             return NotFoundScreen();

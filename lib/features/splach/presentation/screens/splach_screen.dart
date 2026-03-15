@@ -40,11 +40,11 @@ class Splashscreen extends StatelessWidget {
                   }
                 },
                 child: Text(
-                  "I Predict ",
+                  "iPredict ",
                   style: TextStyle(
                       color: Color(0xff043968),
                       fontWeight: FontWeight.bold,
-                      fontSize: 40),
+                      fontSize: 50),
                 ),
               ),
               Spacer()

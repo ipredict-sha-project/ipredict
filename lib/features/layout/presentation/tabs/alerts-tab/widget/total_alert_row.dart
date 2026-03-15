@@ -1,162 +1,68 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-
+import 'package:flutter_svg/flutter_svg.dart';
 import '../../../../../../core/theme/app_color.dart';
+import 'alert_stat_box.dart';
 
 class TotalAlertRow extends StatelessWidget {
-  const TotalAlertRow({super.key});
+
+  final int total;
+  final int critical;
+  final int warning;
+  final int resolved;
+  final int unread;
+
+  const TotalAlertRow({
+    super.key,
+    required this.total,
+    required this.critical,
+    required this.warning,
+    required this.resolved,
+    required this.unread,
+  });
 
   @override
   Widget build(BuildContext context) {
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
       children: [
-        Container(
-          padding: EdgeInsets.symmetric(horizontal: 21, vertical: 13),
-          decoration: BoxDecoration(
-              color: AppColor.gray.withValues(alpha: 0.1),
-              borderRadius: BorderRadius.circular(16),
-              border: Border.all(color: AppColor.gray)),
-          child: Column(
-            children: [
-              SvgPicture.asset(
-                'assets/icons/bell.svg',
-                width: 25,
-              ),
-              Text(
-                '8',
-                style: TextStyle(
-                    color: AppColor.black,
-                    fontSize: 20,
-                    fontWeight: FontWeight.w400),
-              ),
-              Text(
-                'Total',
-                style: TextStyle(
-                    color: AppColor.black,
-                    fontSize: 15,
-                    fontWeight: FontWeight.w400),
-              ),
-            ],
-          ),
+
+        AlertStatBox(
+          icon: 'assets/icons/bell.svg',
+          number: total,
+          label: "Total",
+          color: AppColor.gray,
         ),
-        Container(
-          padding: EdgeInsets.symmetric(horizontal: 12, vertical: 13),
-          decoration: BoxDecoration(
-              color: AppColor.red.withValues(alpha: 0.1),
-              borderRadius: BorderRadius.circular(16),
-              border: Border.all(color: AppColor.red)),
-          child: Column(
-            children: [
-              SvgPicture.asset(
-                'assets/icons/warning.svg',
-                width: 25,
-                color: AppColor.red,
-              ),
-              Text(
-                '8',
-                style: TextStyle(
-                    color: AppColor.red,
-                    fontSize: 20,
-                    fontWeight: FontWeight.w400),
-              ),
-              Text(
-                'warning',
-                style: TextStyle(
-                    color: AppColor.black,
-                    fontSize: 15,
-                    fontWeight: FontWeight.w400),
-              ),
-            ],
-          ),
+
+        AlertStatBox(
+          icon: 'assets/icons/warning.svg',
+          number: critical,
+          label: "Critical",
+          color: AppColor.red,
         ),
-        Container(
-          padding: EdgeInsets.symmetric(horizontal: 12, vertical: 13),
-          decoration: BoxDecoration(
-              color: AppColor.orange.withValues(alpha: 0.1),
-              borderRadius: BorderRadius.circular(16),
-              border: Border.all(color: AppColor.orange)),
-          child: Column(
-            children: [
-              SvgPicture.asset(
-                'assets/icons/warning.svg',
-                width: 25,
-              ),
-              Text(
-                '8',
-                style: TextStyle(
-                    color: AppColor.orange,
-                    fontSize: 20,
-                    fontWeight: FontWeight.w400),
-              ),
-              Text(
-                'warning',
-                style: TextStyle(
-                    color: AppColor.black,
-                    fontSize: 15,
-                    fontWeight: FontWeight.w400),
-              ),
-            ],
-          ),
+
+        AlertStatBox(
+          icon: 'assets/icons/warning.svg',
+          number: warning,
+          label: "Warning",
+          color: AppColor.orange,
         ),
-        Container(
-          padding: EdgeInsets.symmetric(horizontal: 8, vertical: 13),
-          decoration: BoxDecoration(
-              color: AppColor.green.withValues(alpha: 0.1),
-              borderRadius: BorderRadius.circular(16),
-              border: Border.all(color: AppColor.green)),
-          child: Column(
-            children: [
-              SvgPicture.asset(
-                'assets/icons/active.svg',
-                width: 25,
-              ),
-              Text(
-                '2',
-                style: TextStyle(
-                    color: AppColor.green,
-                    fontSize: 20,
-                    fontWeight: FontWeight.w400),
-              ),
-              Text(
-                'Resolved',
-                style: TextStyle(
-                    color: AppColor.black,
-                    fontSize: 15,
-                    fontWeight: FontWeight.w400),
-              ),
-            ],
-          ),
+
+        AlertStatBox(
+          icon: 'assets/icons/active.svg',
+          number: resolved,
+          label: "Resolved",
+          color: AppColor.green,
         ),
-        Container(
-          padding: EdgeInsets.symmetric(horizontal: 21, vertical: 13),
-          decoration: BoxDecoration(
-              color: AppColor.gray.withValues(alpha: 0.1),
-              borderRadius: BorderRadius.circular(16),
-              border: Border.all(color: AppColor.gray)),
-          child: Column(
-            children: [
-              SvgPicture.asset(
-                'assets/icons/bell.svg',
-                width: 25,
-              ),
-              Text(
-                '8',
-                style: TextStyle(
-                    color: AppColor.black,
-                    fontSize: 20,
-                    fontWeight: FontWeight.w400),
-              ),
-              Text(
-                'Total',
-                style: TextStyle(
-                    color: AppColor.black,
-                    fontSize: 15,
-                    fontWeight: FontWeight.w400),
-              ),
-            ],
-          ),
+
+        AlertStatBox(
+          icon: 'assets/icons/bell.svg',
+          number: unread,
+          label: "Unread",
+          color: AppColor.blue,
         ),
+
       ],
     );
   }

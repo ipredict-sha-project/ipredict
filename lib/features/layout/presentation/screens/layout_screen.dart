@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+
 import 'package:ipredict/core/theme/app_color.dart';
+
+import 'package:ipredict/features/layout/presentation/manager/alerts/alerts_bloc.dart';
+import 'package:ipredict/features/layout/presentation/manager/alerts/alerts_event.dart';
+
 import 'package:ipredict/features/layout/presentation/tabs/alerts-tab/screens/alerts_tab.dart';
 import 'package:ipredict/features/layout/presentation/tabs/devices-tab/screens/devices_tab.dart';
 import 'package:ipredict/features/layout/presentation/tabs/home-tab/screens/home_tab.dart';
@@ -16,12 +22,26 @@ class LayoutScreen extends StatefulWidget {
 
 class _LayoutScreenState extends State<LayoutScreen> {
   int currentindex = 0;
-  List<Widget> tabs = [HomeTab(), SensorsTab(), DevicesTab(), AlertsTab(), SettingsTab()];
+
+  final List<Widget> tabs = const [
+    HomeTab(),
+    SensorsTab(),
+    DevicesTab(),
+    AlertsTab(),
+    SettingsTab(),
+  ];
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColor.white,
-      bottomNavigationBar: BottomNavigationBar(
+    return BlocProvider(
+      create: (_) => AlertsBloc()..add(LoadAlertsEvent()),
+      child: Scaffold(
+        backgroundColor: AppColor.white,
+        body: IndexedStack(
+          index: currentindex,
+          children: tabs,
+        ),
+        bottomNavigationBar: BottomNavigationBar(
           backgroundColor: AppColor.white,
           type: BottomNavigationBarType.fixed,
           currentIndex: currentindex,
@@ -33,62 +53,83 @@ class _LayoutScreenState extends State<LayoutScreen> {
           selectedItemColor: AppColor.blue,
           items: [
             BottomNavigationBarItem(
-                icon: SvgPicture.asset('assets/icons/home.svg'),
-                label: 'Home',
-                activeIcon: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 6),
-                  child: SvgPicture.asset(
-                    'assets/icons/home.svg',
-                    colorFilter:
-                    const ColorFilter.mode(AppColor.blue, BlendMode.srcIn),
+              icon: SvgPicture.asset('assets/icons/home.svg'),
+              label: 'Home',
+              activeIcon: Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 6),
+                child: SvgPicture.asset(
+                  'assets/icons/home.svg',
+                  colorFilter: const ColorFilter.mode(
+                    AppColor.blue,
+                    BlendMode.srcIn,
                   ),
-                )),
+                ),
+              ),
+            ),
             BottomNavigationBarItem(
-                icon: SvgPicture.asset('assets/icons/sensors.svg'),
-                label: 'Sensors',
-                activeIcon: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 6),
-                  child: SvgPicture.asset(
-                    'assets/icons/sensors.svg',
-                    colorFilter:
-                    const ColorFilter.mode(AppColor.blue, BlendMode.srcIn),
+              icon: SvgPicture.asset('assets/icons/sensors.svg'),
+              label: 'Sensors',
+              activeIcon: Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 6),
+                child: SvgPicture.asset(
+                  'assets/icons/sensors.svg',
+                  colorFilter: const ColorFilter.mode(
+                    AppColor.blue,
+                    BlendMode.srcIn,
                   ),
-                )),
+                ),
+              ),
+            ),
             BottomNavigationBarItem(
-                icon: SvgPicture.asset('assets/icons/devices.svg'),
-                label: 'Devices',
-                activeIcon: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 6),
-                  child: SvgPicture.asset(
-                    'assets/icons/devices.svg',
-                    colorFilter:
-                    const ColorFilter.mode(AppColor.blue, BlendMode.srcIn),
+              icon: SvgPicture.asset('assets/icons/devices.svg'),
+              label: 'Devices',
+              activeIcon: Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 6),
+                child: SvgPicture.asset(
+                  'assets/icons/devices.svg',
+                  colorFilter: const ColorFilter.mode(
+                    AppColor.blue,
+                    BlendMode.srcIn,
                   ),
-                )),
+                ),
+              ),
+            ),
             BottomNavigationBarItem(
-                icon: SvgPicture.asset('assets/icons/alerts.svg'),
-                label: 'Alerts',
-                activeIcon: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 6),
-                  child: SvgPicture.asset(
-                    'assets/icons/alerts.svg',
-                    colorFilter:
-                    const ColorFilter.mode(AppColor.blue, BlendMode.srcIn),
+              icon: SvgPicture.asset('assets/icons/alerts.svg'),
+              label: 'Alerts',
+              activeIcon: Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 6),
+                child: SvgPicture.asset(
+                  'assets/icons/alerts.svg',
+                  colorFilter: const ColorFilter.mode(
+                    AppColor.blue,
+                    BlendMode.srcIn,
                   ),
-                )),
+                ),
+              ),
+            ),
             BottomNavigationBarItem(
-                icon: SvgPicture.asset('assets/icons/settings.svg'),
-                label: 'Settings',
-                activeIcon: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 6),
-                  child: SvgPicture.asset(
-                    'assets/icons/settings.svg',
-                    colorFilter:
-                    const ColorFilter.mode(AppColor.blue, BlendMode.srcIn),
+              icon: SvgPicture.asset('assets/icons/settings.svg'),
+              label: 'Settings',
+              activeIcon: Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 6),
+                child: SvgPicture.asset(
+                  'assets/icons/settings.svg',
+                  colorFilter: const ColorFilter.mode(
+                    AppColor.blue,
+                    BlendMode.srcIn,
                   ),
-                )),
-          ]),
-      body: tabs[currentindex],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

@@ -1,76 +1,119 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:ipredict/features/layout/presentation/tabs/alerts-tab/widget/RESOLVED_alert.dart';
-import 'package:ipredict/features/layout/presentation/tabs/alerts-tab/widget/WARNING_alert.dart';
-import 'package:ipredict/features/layout/presentation/tabs/alerts-tab/widget/total_alert_row.dart';
-import 'package:ipredict/features/layout/presentation/widgets/appbar_widget.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../../core/theme/app_color.dart';
-import '../widget/CRITICAL_alert.dart';
+import '../../../widgets/appbar_widget.dart';
 
-class AlertsTab extends StatelessWidget {
+import '../../../manager/alerts/alerts_bloc.dart';
+import '../../../manager/alerts/alerts_event.dart';
+import '../../../manager/alerts/alerts_state.dart';
+
+import '../module/alert_module.dart';
+import '../widget/alert_card.dart';
+import '../widget/total_alert_row.dart';
+
+import 'alert_details.dart';
+
+class AlertsTab extends StatefulWidget {
   const AlertsTab({super.key});
 
   @override
+  State<AlertsTab> createState() => _AlertsTabState();
+}
+
+class _AlertsTabState extends State<AlertsTab> {
+  AlertModel? selectedAlert;
+
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColor.white,
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            AppbarWidget(),
-            Container(
-              padding: EdgeInsets.symmetric(vertical: 15 , horizontal: 15),
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: 30,
-                  ),
-                  Center(
-                    child: Text(
-                      "Alerts",
-                      style: TextStyle(
-                        color: Color(0xff222222),
-                        fontSize: 35,
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Text(
-                    "Critical Events & System Notifications",
-                    style: TextStyle(
-                        color: Color(0xff6A7282),
-                        fontSize: 16,
-                        fontWeight: FontWeight.w400),
-                  ),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  TotalAlertRow(),
-                  SizedBox(
-                    height: 25,
-                  ),
-                  CriticalAlert(),
-                  SizedBox(height: 15,),
-                  CriticalAlert(),
-                  SizedBox(height: 15,),
-                  CriticalAlert(),
-                  SizedBox(height: 15,),
-                  WarningAlert(),
-                  SizedBox(height: 15,),
-                  WarningAlert(),
-                  SizedBox(height: 15,),
-                  ResolvedAlert(),
-                  SizedBox(height: 40,)
-                ],
-              ),
-            ),
-          ],
+    return BlocProvider(
+      create: (_) => AlertsBloc()..add(LoadAlertsEvent()),
+      child: Scaffold(
+        backgroundColor: AppColor.white,
+        body: SafeArea(
+          child: selectedAlert == null
+              ? _buildAlertsList()
+              : AlertDetails(
+                  alert: selectedAlert!,
+                  onBack: () {
+                    setState(() {
+                      selectedAlert = null;
+                    });
+                  },
+                ),
         ),
       ),
+    );
+  }
+
+  Widget _buildAlertsList() {
+    return BlocBuilder<AlertsBloc, AlertsState>(
+      builder: (context, state) {
+        if (state is AlertsLoading) {
+          return const Center(child: CircularProgressIndicator());
+        }
+
+        if (state is AlertsLoaded) {
+          final alerts = state.alerts;
+
+          return SingleChildScrollView(
+            child: Column(
+              children: [
+                /// APP BAR
+                AppbarWidget(),
+
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 20,
+                    vertical: 20,
+                  ),
+                  child: Column(
+                    children: [
+                      const Text(
+                        "Alerts",
+                        style: TextStyle(fontSize: 35),
+                      ),
+                      const SizedBox(height: 10),
+                      const Text(
+                        "Critical Events & System Notifications",
+                        style: TextStyle(color: Colors.grey),
+                      ),
+                      const SizedBox(height: 20),
+                      TotalAlertRow(
+                        total: state.total,
+                        critical: state.critical,
+                        warning: state.warning,
+                        resolved: state.resolved,
+                        unread: state.total - state.resolved,
+                      ),
+                      const SizedBox(height: 25),
+                      ListView.builder(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: alerts.length,
+                        itemBuilder: (context, index) {
+                          final alert = alerts[index];
+
+                          return GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                selectedAlert = alert;
+                              });
+                            },
+                            child: AlertCard(alert: alert),
+                          );
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          );
+        }
+
+        return const SizedBox();
+      },
     );
   }
 }

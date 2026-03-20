@@ -34,13 +34,13 @@ class _AlertsTabState extends State<AlertsTab> {
           child: selectedAlert == null
               ? _buildAlertsList()
               : AlertDetails(
-                  alert: selectedAlert!,
-                  onBack: () {
-                    setState(() {
-                      selectedAlert = null;
-                    });
-                  },
-                ),
+            alert: selectedAlert!,
+            onBack: () {
+              setState(() {
+                selectedAlert = null;
+              });
+            },
+          ),
         ),
       ),
     );
@@ -49,10 +49,13 @@ class _AlertsTabState extends State<AlertsTab> {
   Widget _buildAlertsList() {
     return BlocBuilder<AlertsBloc, AlertsState>(
       builder: (context, state) {
+
+        /// LOADING
         if (state is AlertsLoading) {
           return const Center(child: CircularProgressIndicator());
         }
 
+        /// LOADED
         if (state is AlertsLoaded) {
           final alerts = state.alerts;
 
@@ -79,6 +82,8 @@ class _AlertsTabState extends State<AlertsTab> {
                         style: TextStyle(color: Colors.grey),
                       ),
                       const SizedBox(height: 20),
+
+                      /// STATS
                       TotalAlertRow(
                         total: state.total,
                         critical: state.critical,
@@ -86,7 +91,28 @@ class _AlertsTabState extends State<AlertsTab> {
                         resolved: state.resolved,
                         unread: state.total - state.resolved,
                       ),
+
                       const SizedBox(height: 25),
+
+                      /// EMPTY STATE
+                      if (alerts.isEmpty) ...[
+                        const SizedBox(height: 100),
+                        const Icon(
+                          Icons.notifications_off,
+                          size: 80,
+                          color: Colors.grey,
+                        ),
+                        const SizedBox(height: 20),
+                        const Text(
+                          "No Alerts Found",
+                          style: TextStyle(
+                            fontSize: 22,
+                            color: Colors.grey,
+                          ),
+                        ),
+                      ],
+
+                      /// LIST
                       ListView.builder(
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),

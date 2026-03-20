@@ -11,27 +11,40 @@ import '../../data/repo/repo_imp.dart';
 import '../../presentation/screens/otp_screen.dart';
 
 class AuthProvider extends ChangeNotifier {
+  /// CURRENT USER
+  User? currentUser;
+
+  String get userName => currentUser?.displayName ?? "";
+  String get userEmail => currentUser?.email ?? "";
+
   /// Controllers
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController rePasswordController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
+
   String fullPhoneNumber = "";
   String verificationId = "";
+
   TextEditingController otpController = TextEditingController();
+
   int resendSeconds = 60;
   bool canResend = false;
   Timer? _timer;
 
-
   /// Password visibility
   ValueNotifier<bool> password = ValueNotifier(true);
+
   bool isLoading = false;
   bool isShowPassword = true;
 
   /// Repository
   final AuthRepoImp repo = AuthRepoImp(AuthDataSourceImp());
+
+  AuthProvider() {
+    currentUser = FirebaseAuth.instance.currentUser;
+  }
 
   /// Loading Helpers
   void startLoading() {
@@ -51,11 +64,10 @@ class AuthProvider extends ChangeNotifier {
     Navigator.pushNamedAndRemoveUntil(
       context,
       route,
-      (route) => false,
+          (route) => false,
     );
   }
-
-  /// Create Account
+  /// CREATE ACCOUNT
   Future<void> createAccount(BuildContext context) async {
     startLoading();
 
@@ -80,8 +92,7 @@ class AuthProvider extends ChangeNotifier {
 
     stopLoading();
   }
-
-  /// Login
+  /// LOGIN
   Future<void> login(BuildContext context) async {
     startLoading();
 
@@ -92,6 +103,10 @@ class AuthProvider extends ChangeNotifier {
       );
 
       if (user.user != null && user.user!.emailVerified) {
+        currentUser = user.user;
+
+        notifyListeners();
+
         navigateAndClear(context, AppRouteName.layout);
 
         AppDialogs.showMessage(
@@ -115,28 +130,38 @@ class AuthProvider extends ChangeNotifier {
 
     stopLoading();
   }
-
-  /// Google Login
+  /// GOOGLE LOGIN
   Future<void> signInWithGoogle(BuildContext context) async {
-    var user = await repo.signInWithGoogle();
+    try {
+      var user = await repo.signInWithGoogle();
 
-    if (user != null) {
-      navigateAndClear(context, AppRouteName.layout);
+      if (user != null) {
+        currentUser = user;
 
+        notifyListeners();
+
+        navigateAndClear(context, AppRouteName.layout);
+
+        AppDialogs.showMessage(
+          context,
+          title: "Welcome , ${user.displayName ?? ''}",
+        );
+      } else {
+        AppDialogs.showMessage(
+          context,
+          title: "Google Sign In Cancelled",
+          type: MessageType.error,
+        );
+      }
+    } catch (e) {
       AppDialogs.showMessage(
         context,
-        title: "Welcome , ${user.displayName ?? ''}",
-      );
-    } else {
-      AppDialogs.showMessage(
-        context,
-        title: "Google Sign In Cancelled",
+        title: "Google Sign-In failed",
         type: MessageType.error,
       );
     }
   }
-
-  ///resentPassword
+  /// RESET PASSWORD
   Future<void> resetPassword(BuildContext context) async {
     try {
       startLoading();
@@ -148,8 +173,7 @@ class AuthProvider extends ChangeNotifier {
         title: "Password reset email sent",
       );
 
-      Navigator.pop(context); // يرجع لصفحة login
-
+      Navigator.pop(context);
     } catch (e) {
       AppDialogs.showMessage(
         context,
@@ -160,16 +184,16 @@ class AuthProvider extends ChangeNotifier {
 
     stopLoading();
   }
-
-  /// Logout
-  Future<void> logout(BuildContext context) async {
+  /// LOGOUT
+  Future<void> logout() async {
     await FirebaseAuth.instance.signOut();
-    await GoogleSignIn().signOut(); // مهم جدًا
+    await GoogleSignIn().signOut();
 
-    navigateAndClear(context, AppRouteName.login);
+    currentUser = null;
+
+    notifyListeners();
   }
-
-  /// Otp
+  /// OTP SEND
   Future<void> sendOtp(BuildContext context) async {
     try {
       isLoading = true;
@@ -180,6 +204,9 @@ class AuthProvider extends ChangeNotifier {
 
         verificationCompleted: (PhoneAuthCredential credential) async {
           await FirebaseAuth.instance.signInWithCredential(credential);
+
+          currentUser = FirebaseAuth.instance.currentUser;
+
           Navigator.pushReplacementNamed(context, AppRouteName.layout);
         },
 
@@ -211,8 +238,7 @@ class AuthProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
-
-  ///verifyOtp
+  /// VERIFY OTP
   Future<void> verifyOtp(BuildContext context) async {
     try {
       isLoading = true;
@@ -225,8 +251,9 @@ class AuthProvider extends ChangeNotifier {
 
       await FirebaseAuth.instance.signInWithCredential(credential);
 
-      Navigator.pushReplacementNamed(context, AppRouteName.layout);
+      currentUser = FirebaseAuth.instance.currentUser;
 
+      Navigator.pushReplacementNamed(context, AppRouteName.layout);
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text("Invalid OTP")),
@@ -236,8 +263,7 @@ class AuthProvider extends ChangeNotifier {
     isLoading = false;
     notifyListeners();
   }
-
-  ///resendOtp
+  /// RESEND OTP
   Future<void> resendOtp(BuildContext context) async {
     if (!canResend) return;
 
@@ -261,7 +287,7 @@ class AuthProvider extends ChangeNotifier {
     });
   }
 
-  /// Dispose
+  /// DISPOSE
   @override
   void dispose() {
     nameController.dispose();
@@ -269,7 +295,10 @@ class AuthProvider extends ChangeNotifier {
     passwordController.dispose();
     rePasswordController.dispose();
     phoneController.dispose();
+    otpController.dispose();
     password.dispose();
+
+    _timer?.cancel();
 
     super.dispose();
   }

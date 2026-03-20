@@ -14,130 +14,157 @@ class PreferencesWidget extends StatelessWidget {
         Text(
           "Preferences",
           style: TextStyle(
-              color: AppColor.gray,
-              fontSize: 20,
-              fontWeight: FontWeight.w400),
+            color: AppColor.gray,
+            fontSize: 20,
+            fontWeight: FontWeight.w400,
+          ),
         ),
-        SizedBox(
-          height: 30,
-        ),
+
+        const SizedBox(height: 30),
+
+        /// 🔥 Notifications
         Container(
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(16),
-              boxShadow: [
-                BoxShadow(
-                    color: AppColor.gray.withValues(alpha: 0.5),
-                    spreadRadius: 2,
-                    blurRadius: 8,
-                    offset: Offset(0, 4))
-              ],
-              color: AppColor.white,
-              border: Border.all(color: AppColor.gray_background)),
+            borderRadius: BorderRadius.circular(16),
+            boxShadow: [
+              BoxShadow(
+                color: AppColor.gray.withOpacity(0.5),
+                spreadRadius: 2,
+                blurRadius: 8,
+                offset: const Offset(0, 4),
+              )
+            ],
+            color: AppColor.white,
+            border: Border.all(color: AppColor.gray_background),
+          ),
           child: Padding(
-            padding:
-            EdgeInsets.symmetric(vertical: 30, horizontal: 22),
+            padding: const EdgeInsets.symmetric(
+              vertical: 25,
+              horizontal: 20,
+            ),
             child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                /// ICON
                 Container(
-                  padding: EdgeInsets.all(15),
+                  padding: const EdgeInsets.all(15),
                   decoration: BoxDecoration(
-                      color: AppColor.gray.withValues(alpha: 0.1),
-                      borderRadius: BorderRadius.circular(16)),
+                    color: AppColor.gray.withOpacity(0.1),
+                    borderRadius: BorderRadius.circular(16),
+                  ),
                   child: SvgPicture.asset(
                     "assets/icons/alarm.svg",
                     color: AppColor.gray,
                   ),
                 ),
-                Spacer(),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Notifications",
-                      style: TextStyle(
+
+                const SizedBox(width: 15),
+
+                /// TEXT
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: const [
+                      Text(
+                        "Notifications",
+                        style: TextStyle(
                           color: AppColor.black,
-                          fontSize: 22,
-                          fontWeight: FontWeight.w400),
-                    ),
-                    Text(
-                      "Configure alert preferences",
-                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                      SizedBox(height: 5),
+                      Text(
+                        "Configure alert preferences",
+                        style: TextStyle(
                           color: AppColor.gray,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w400),
-                    ),
-                  ],
+                          fontSize: 15,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-                Spacer(),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(Icons.arrow_forward_ios , color: AppColor.gray,),
-                  ],
-                )
+
+                /// ARROW
+                Icon(
+                  Icons.arrow_forward_ios,
+                  color: AppColor.gray,
+                  size: 18,
+                ),
               ],
             ),
           ),
         ),
-        SizedBox(
-          height: 10,
-        ),
+
+        const SizedBox(height: 12),
+
+        /// 🔥 Appearance
         Container(
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(16),
-              boxShadow: [
-                BoxShadow(
-                    color: AppColor.gray.withValues(alpha: 0.5),
-                    spreadRadius: 2,
-                    blurRadius: 8,
-                    offset: Offset(0, 4))
-              ],
-              color: AppColor.white,
-              border: Border.all(color: AppColor.gray_background)),
+            borderRadius: BorderRadius.circular(16),
+            boxShadow: [
+              BoxShadow(
+                color: AppColor.gray.withOpacity(0.5),
+                spreadRadius: 2,
+                blurRadius: 8,
+                offset: const Offset(0, 4),
+              )
+            ],
+            color: AppColor.white,
+            border: Border.all(color: AppColor.gray_background),
+          ),
           child: Padding(
-            padding:
-            EdgeInsets.symmetric(vertical: 30, horizontal: 22),
+            padding: const EdgeInsets.symmetric(
+              vertical: 25,
+              horizontal: 20,
+            ),
             child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                /// ICON
                 Container(
-                  padding: EdgeInsets.all(15),
+                  padding: const EdgeInsets.all(15),
                   decoration: BoxDecoration(
-                      color: AppColor.gray.withValues(alpha: 0.1),
-                      borderRadius: BorderRadius.circular(16)),
+                    color: AppColor.gray.withOpacity(0.1),
+                    borderRadius: BorderRadius.circular(16),
+                  ),
                   child: SvgPicture.asset(
                     "assets/icons/Appearance.svg",
                     color: AppColor.gray,
                   ),
                 ),
-                Spacer(),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Appearance",
-                      style: TextStyle(
+
+                const SizedBox(width: 15),
+
+                /// TEXT
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: const [
+                      Text(
+                        "Appearance",
+                        style: TextStyle(
                           color: AppColor.black,
-                          fontSize: 22,
-                          fontWeight: FontWeight.w400),
-                    ),
-                    Text(
-                      "Light mode (Default)",
-                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                      SizedBox(height: 5),
+                      Text(
+                        "Light mode (Default)",
+                        style: TextStyle(
                           color: AppColor.gray,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w400),
-                    ),
-                  ],
+                          fontSize: 15,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-                Spacer(),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(Icons.arrow_forward_ios , color: AppColor.gray,),
-                  ],
-                )
+
+                /// ARROW
+                Icon(
+                  Icons.arrow_forward_ios,
+                  color: AppColor.gray,
+                  size: 18,
+                ),
               ],
             ),
           ),

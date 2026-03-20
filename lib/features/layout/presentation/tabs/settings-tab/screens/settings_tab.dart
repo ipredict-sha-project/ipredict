@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ipredict/core/theme/app_color.dart';
-import 'package:ipredict/features/layout/presentation/widgets/appbar_widget.dart';
+import 'package:provider/provider.dart';
 
+import '../../../../../auth/data/data_source/auth_provider.dart';
+import '../../../widgets/appbar_widget.dart';
 import '../widget/account/account_widget.dart';
 import '../widget/preferences/preferences_widget.dart';
 import '../widget/profile/profile_widget.dart';
@@ -16,90 +18,83 @@ class SettingsTab extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColor.white,
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              AppbarWidget(),
-              Container(
-                padding: EdgeInsets.symmetric(vertical: 15, horizontal: 15),
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: 30,
-                    ),
-                    Column(
+        child: ListView(
+          children: [
+            Column(
+                children: [
+                  AppbarWidget(),
+                  Padding(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+                    child: Column(
                       children: [
-                        Text(
+                        const SizedBox(height: 30),
+
+                        const Text(
                           "Settings",
-                          style: TextStyle(
-                            color: AppColor.black,
-                            fontSize: 35,
-                            fontWeight: FontWeight.w400,
-                          ),
+                          style: TextStyle(fontSize: 35),
                         ),
-                        Text(
+                        const Text(
                           "System Configuration & Preferences",
-                          style: TextStyle(
-                              color: AppColor.gray,
-                              fontSize: 16,
-                              fontWeight: FontWeight.w400),
+                          style: TextStyle(color: Colors.grey),
                         ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 30,
-                    ),
-                    ProfileWidget(),
-                    SizedBox(
-                      height: 30,
-                    ),
-                    AccountWidget(),
-                    SizedBox(
-                      height: 30,
-                    ),
-                    PreferencesWidget(),
-                    SizedBox(
-                      height: 30,
-                    ),
-                    SupportWidget(),
-                    SizedBox(
-                      height: 30,
-                    ),
-                    Container(
-                      child: CupertinoButton(
+
+                        const SizedBox(height: 30),
+
+                        const ProfileWidget(),
+                        const SizedBox(height: 30),
+
+                        const AccountWidget(),
+                        const SizedBox(height: 30),
+
+                        const PreferencesWidget(),
+                        const SizedBox(height: 30),
+
+                        const SupportWidget(),
+                        const SizedBox(height: 30),
+
+                        /// LOGOUT
+                        CupertinoButton(
                           borderRadius: BorderRadius.circular(30),
                           padding: EdgeInsets.all(20),
                           color: AppColor.red.withValues(alpha: 0.2),
                           child: Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 10 , horizontal: 150),
+                            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 150),
                             child: Text(
                               "Log Out",
                               style: TextStyle(
-                                  color: AppColor.red,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w400),
+                                color: AppColor.red,
+                                fontSize: 20,
+                              ),
                             ),
                           ),
-                          onPressed: () {}),
+                            onPressed: () async {
+                              final provider = context.read<AuthProvider>();
+
+                              await provider.logout();
+
+                              if (context.mounted) {
+                                Navigator.pushNamedAndRemoveUntil(
+                                  context,
+                                  "/login",
+                                      (route) => false,
+                                );
+                              }
+                            }
+                        ),
+
+                        const SizedBox(height: 30),
+
+                        const Text("iPredict v2.1.0",
+                            style: TextStyle(color: AppColor.gray)),
+
+                        const SizedBox(height: 40),
+                      ],
                     ),
-                    SizedBox(
-                      height: 30,
-                    ),
-                    Text(
-                      'iPredict v2.1.0',
-                      style: TextStyle(
-                          color: AppColor.gray,
-                          fontSize: 18,
-                          fontWeight: FontWeight.w400),
-                    ),
-                    SizedBox(
-                      height: 40,
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-            ],
-          ),
+          ],
         ),
       ),
     );

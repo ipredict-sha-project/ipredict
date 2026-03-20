@@ -32,5 +32,7 @@
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
 	<string>1:538153412800:ios:2d149d84a7a63b00eea525</string>
+	<key>DATABASE_URL</key>
+	<string>https://iprdict-sha-project-default-rtdb.firebaseio.com</string>
 </dict>
 </plist>

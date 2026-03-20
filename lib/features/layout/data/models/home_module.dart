@@ -1,4 +1,4 @@
-import '../../alerts-tab/module/alert_module.dart';
+import 'alert_module.dart';
 
 class DashboardModel {
   final double temperature;
@@ -32,8 +32,9 @@ class DashboardModel {
       warningServers: json["warning_servers"] ?? 0,
       offlineServers: json["offline_servers"] ?? 0,
       totalServers: json["total_servers"] ?? 0,
-      alerts:
-          (json["alerts"] as List).map((e) => AlertModel.fromJson(e)).toList(),
+      alerts: (json["alerts"] as List? ?? [])
+          .map((e) => AlertModel.fromJson(e))
+          .toList(),
     );
   }
 }

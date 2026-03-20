@@ -5,7 +5,7 @@ import '../theme/app_color.dart';
 class CustoumBtn extends StatelessWidget {
   bool isLoading;
   String text;
-  Function() onTab;
+  final VoidCallback? onTab;
    CustoumBtn({super.key ,required this.text , required this.onTab ,  this.isLoading = false});
 
   @override

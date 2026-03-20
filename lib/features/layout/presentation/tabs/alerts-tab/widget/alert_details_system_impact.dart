@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../../../core/theme/app_color.dart';
-import '../module/alert_module.dart';
+import '../../../../data/models/alert_module.dart';
 
 class AlertDetailsSystemImpact extends StatelessWidget {
   final AlertModel alert;

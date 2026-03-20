@@ -8,7 +8,7 @@ import '../../../manager/alerts/alerts_bloc.dart';
 import '../../../manager/alerts/alerts_event.dart';
 import '../../../manager/alerts/alerts_state.dart';
 
-import '../module/alert_module.dart';
+import '../../../../data/models/alert_module.dart';
 import '../widget/alert_card.dart';
 import '../widget/total_alert_row.dart';
 

@@ -1,129 +1,111 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-
 import '../../../../../../core/theme/app_color.dart';
+import '../../../../data/models/sensor_module.dart';
 
 class Systemstatus extends StatelessWidget {
-  const Systemstatus({super.key});
+  final List<SensorModel> sensors;
+
+  const Systemstatus({
+    super.key,
+    required this.sensors,
+  });
+
+  int get active => sensors.where((s) => s.calculatedStatus == "normal").length;
+
+  int get warning =>
+      sensors.where((s) => s.calculatedStatus == "warning").length;
+
+  int get critical =>
+      sensors.where((s) => s.calculatedStatus == "critical").length;
+
+  int get offline =>
+      sensors.where((s) => s.calculatedStatus == "offline").length;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(16),
-          boxShadow: [
-            BoxShadow(
-                color: AppColor.gray.withValues(alpha: 0.5),
-                spreadRadius: 2,
-                blurRadius: 8,
-                offset: Offset(0, 4))
-          ],
-          color: AppColor.white,
-          border: Border.all(color: AppColor.gray_background)),
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: AppColor.gray.withOpacity(0.5),
+            blurRadius: 8,
+            offset: const Offset(0, 4),
+          )
+        ],
+        color: AppColor.white,
+        border: Border.all(color: AppColor.gray_background),
+      ),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            children: [
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 21),
-                child: Text(
-                  'System Status'.toUpperCase(),
-                  style: TextStyle(
-                      color: AppColor.gray,
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400),
-                ),
-              ),
-              Spacer(),
-              Padding(
-                padding: const EdgeInsets.all(15),
-                child: Row(
-                  children: [
-                    Text(
-                      '5 Sensors',
-                      style: TextStyle(
-                          color: AppColor.black,
-                          fontSize: 24,
-                          fontWeight: FontWeight.w400),
-                    ),
-                  ],
-                ),
-              )
-            ],
-          ),
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 25 , horizontal: 21),
-            child: Column(
+            padding: const EdgeInsets.symmetric(horizontal: 21, vertical: 15),
+            child: Row(
               children: [
-                Row(
-                  children: [
-                    Container(
-                      padding: EdgeInsets.only(top: 17 , bottom: 17 , left: 17 , right: 125 ),
-                      decoration: BoxDecoration(
-                          color: AppColor.green.withValues(alpha: 0.1),
-                          borderRadius: BorderRadius.circular(16),
-                          border: Border.all(color: AppColor.green)),
-                      child: Column(
-                        children: [
-                          Text('3' , style: TextStyle(color: AppColor.green , fontSize: 25 , fontWeight: FontWeight.bold),),
-                          Text('Active'.toUpperCase() , style: TextStyle(color: AppColor.green , fontSize: 15),),
-                        ],
-                      ),
-                    ),
-                    Spacer(),
-                    Container(
-                      padding: EdgeInsets.only(top: 17 , bottom: 17 , left: 17 , right: 105),
-                      decoration: BoxDecoration(
-                          color: AppColor.orange.withValues(alpha: 0.1),
-                          borderRadius: BorderRadius.circular(16),
-                          border: Border.all(color: AppColor.orange)),
-                      child: Column(
-                        children: [
-                          Text('1' , style: TextStyle(color: AppColor.orange , fontSize: 25 , fontWeight: FontWeight.bold),),
-                          Text('Warning'.toUpperCase() , style: TextStyle(color: AppColor.orange , fontSize: 15),),
-                        ],
-                      ),
-                    ),
-                  ],
+                Text(
+                  'SYSTEM STATUS',
+                  style: TextStyle(color: AppColor.gray),
                 ),
-                SizedBox(height: 15,),
-                Row(
-                  children: [
-                    Container(
-                      padding: EdgeInsets.only(top: 17 , bottom: 17 , left: 17 , right: 110),
-                      decoration: BoxDecoration(
-                          color: AppColor.red.withValues(alpha: 0.1),
-                          borderRadius: BorderRadius.circular(16),
-                          border: Border.all(color: AppColor.red)),
-                      child: Column(
-                        children: [
-                          Text('1' , style: TextStyle(color: AppColor.red , fontSize: 25 , fontWeight: FontWeight.bold),),
-                          Text('Critical'.toUpperCase() , style: TextStyle(color: AppColor.red , fontSize: 15),),
-                        ],
-                      ),
-                    ),
-                    Spacer(),
-                    Container(
-                      padding: EdgeInsets.only(top: 17 , bottom: 17 , left: 17 , right: 115),
-                      decoration: BoxDecoration(
-                          color: AppColor.gray.withValues(alpha: 0.1),
-                          borderRadius: BorderRadius.circular(16),
-                          border: Border.all(color: AppColor.gray)),
-                      child: Column(
-                        children: [
-                          Text('0' , style: TextStyle(color: AppColor.gray , fontSize: 25 , fontWeight: FontWeight.bold),),
-                          Text('Offline'.toUpperCase() , style: TextStyle(color: AppColor.gray , fontSize: 15),),
-                        ],
-                      ),
-                    ),
-                  ],
+                const Spacer(),
+                Text(
+                  '${sensors.length} Sensors',
+                  style: TextStyle(fontSize: 20),
                 ),
               ],
             ),
           ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 21, vertical: 20),
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    _box(active, "Active", AppColor.green),
+                    const SizedBox(width: 10),
+                    _box(warning, "Warning", AppColor.orange),
+                  ],
+                ),
+                const SizedBox(height: 10),
+                Row(
+                  children: [
+                    _box(critical, "Critical", AppColor.red),
+                    const SizedBox(width: 10),
+                    _box(offline, "Offline", AppColor.gray),
+                  ],
+                ),
+              ],
+            ),
+          )
         ],
+      ),
+    );
+  }
+
+  Widget _box(int value, String title, Color color) {
+    return Expanded(
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 18),
+        decoration: BoxDecoration(
+          color: color.withOpacity(.1),
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(color: color),
+        ),
+        child: Column(
+          children: [
+            Text(
+              value.toString(),
+              style: TextStyle(
+                color: color,
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            Text(
+              title.toUpperCase(),
+              style: TextStyle(color: color),
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -1,22 +1,26 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:ipredict/features/auth/presentation/screens/login_screen.dart';
-import 'package:ipredict/features/onboarding/presentation/screens/onboarding_screen.dart';
-import 'package:ipredict/features/splach/presentation/screens/splach_screen.dart';
 import 'package:provider/provider.dart';
 
 import 'core/manager/app_provider.dart';
 import 'core/routes_manager/routes/route_gen.dart';
+import 'features/auth/data/data_source/auth_provider.dart';
+import 'features/splach/presentation/screens/splach_screen.dart';
 import 'firebase_options.dart';
 
-void main() async{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(ChangeNotifierProvider(
-    create: (context) => AppProvider(),
-    child: const MyApp())
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => AppProvider()),
+        ChangeNotifierProvider(create: (context) => AuthProvider()),
+      ],
+      child: const MyApp(),
+    ),
   );
 }
 
@@ -31,7 +35,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       onGenerateRoute: RouteGen.onGenerateRoute,
       home: Splashscreen(),
-
     );
   }
 }

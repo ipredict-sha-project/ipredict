@@ -6,6 +6,8 @@ import 'package:ipredict/core/theme/app_color.dart';
 
 import 'package:ipredict/features/layout/presentation/manager/alerts/alerts_bloc.dart';
 import 'package:ipredict/features/layout/presentation/manager/alerts/alerts_event.dart';
+import 'package:ipredict/features/layout/presentation/manager/home/home_bloc.dart';
+import 'package:ipredict/features/layout/presentation/manager/home/home_event.dart';
 
 import 'package:ipredict/features/layout/presentation/tabs/alerts-tab/screens/alerts_tab.dart';
 import 'package:ipredict/features/layout/presentation/tabs/devices-tab/screens/devices_tab.dart';
@@ -23,18 +25,33 @@ class LayoutScreen extends StatefulWidget {
 class _LayoutScreenState extends State<LayoutScreen> {
   int currentindex = 0;
 
-  final List<Widget> tabs = const [
-    HomeTab(),
-    SensorsTab(),
-    DevicesTab(),
-    AlertsTab(),
-    SettingsTab(),
-  ];
+  void goToAlertsTab() {
+    setState(() {
+      currentindex = 3;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => AlertsBloc()..add(LoadAlertsEvent()),
+    final List<Widget> tabs = [
+      HomeTab(
+        onViewAllAlerts: goToAlertsTab,
+      ),
+      const SensorsTab(),
+      const DevicesTab(),
+      const AlertsTab(),
+      const SettingsTab(),
+    ];
+
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (_) => AlertsBloc()..add(LoadAlertsEvent()),
+        ),
+        BlocProvider(
+          create: (_) => HomeBloc()..add(LoadHomeEvent()),
+        ),
+      ],
       child: Scaffold(
         backgroundColor: AppColor.white,
         body: IndexedStack(

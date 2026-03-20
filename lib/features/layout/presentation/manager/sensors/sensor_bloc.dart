@@ -20,26 +20,26 @@ class SensorsBloc extends Bloc<SensorsEvent, SensorsState> {
     on<UpdateSensorsEvent>(_update);
   }
 
+  /// 🔥 LOAD
   Future<void> _load(
-    LoadSensorsEvent event,
-    Emitter<SensorsState> emit,
-  ) async {
+      LoadSensorsEvent event,
+      Emitter<SensorsState> emit,
+      ) async {
     emit(SensorsLoading());
 
     final cached = await _loadFromCache();
-    if (cached.isNotEmpty) {
-      emit(SensorsLoaded(sensors: cached));
-    }
+
+    /// ✅ أهم تعديل: اعرض حتى لو فاضي
+    emit(SensorsLoaded(sensors: cached));
 
     _subscription?.cancel();
 
     try {
       _subscription = repository.getSensorsStream().listen(
-        (sensors) {
-          if (sensors.isNotEmpty) {
-            _saveToCache(sensors);
-            add(UpdateSensorsEvent(sensors));
-          }
+            (sensors) {
+          /// ✅ شيلنا شرط isNotEmpty
+          _saveToCache(sensors);
+          add(UpdateSensorsEvent(sensors));
         },
         onError: (_) {
           emit(SensorsError());
@@ -50,31 +50,34 @@ class SensorsBloc extends Bloc<SensorsEvent, SensorsState> {
     }
   }
 
+  /// 🔥 UPDATE
   void _update(
-    UpdateSensorsEvent event,
-    Emitter<SensorsState> emit,
-  ) {
+      UpdateSensorsEvent event,
+      Emitter<SensorsState> emit,
+      ) {
     emit(SensorsLoaded(sensors: event.sensors));
   }
 
+  /// 🔥 CACHE SAVE
   Future<void> _saveToCache(List<SensorModel> sensors) async {
     final prefs = await SharedPreferences.getInstance();
 
     final data = sensors
         .map((e) => {
-              "id": e.id,
-              "name": e.name,
-              "type": e.type,
-              "location": e.location,
-              "value": e.value,
-              "unit": e.unit,
-              "status": e.status,
-            })
+      "id": e.id,
+      "name": e.name,
+      "type": e.type,
+      "location": e.location,
+      "value": e.value,
+      "unit": e.unit,
+      "status": e.status,
+    })
         .toList();
 
-    prefs.setString("cached_sensors", jsonEncode(data));
+    await prefs.setString("cached_sensors", jsonEncode(data));
   }
 
+  /// 🔥 CACHE LOAD
   Future<List<SensorModel>> _loadFromCache() async {
     final prefs = await SharedPreferences.getInstance();
 

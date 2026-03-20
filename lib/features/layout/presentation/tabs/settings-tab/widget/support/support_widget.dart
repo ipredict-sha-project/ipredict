@@ -11,138 +11,108 @@ class SupportWidget extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
+        const Text(
           "Support",
           style: TextStyle(
-              color: AppColor.gray,
-              fontSize: 20,
-              fontWeight: FontWeight.w400),
-        ),
-        SizedBox(
-          height: 30,
-        ),
-        Container(
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(16),
-              boxShadow: [
-                BoxShadow(
-                    color: AppColor.gray.withValues(alpha: 0.5),
-                    spreadRadius: 2,
-                    blurRadius: 8,
-                    offset: Offset(0, 4))
-              ],
-              color: AppColor.white,
-              border: Border.all(color: AppColor.gray_background)),
-          child: Padding(
-            padding:
-            EdgeInsets.symmetric(vertical: 30, horizontal: 22),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  padding: EdgeInsets.all(15),
-                  decoration: BoxDecoration(
-                      color: AppColor.gray.withValues(alpha: 0.1),
-                      borderRadius: BorderRadius.circular(16)),
-                  child: SvgPicture.asset(
-                    "assets/icons/help.svg",
-                    color: AppColor.gray,
-                  ),
-                ),
-                Spacer(),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Help & Support",
-                      style: TextStyle(
-                          color: AppColor.black,
-                          fontSize: 22,
-                          fontWeight: FontWeight.w400),
-                    ),
-                    Text(
-                      "Get help and contact us",
-                      style: TextStyle(
-                          color: AppColor.gray,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w400),
-                    ),
-                  ],
-                ),
-                Spacer(),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(Icons.arrow_forward_ios , color: AppColor.gray,),
-                  ],
-                )
-              ],
-            ),
+            color: AppColor.gray,
+            fontSize: 20,
+            fontWeight: FontWeight.w400,
           ),
         ),
-        SizedBox(
-          height: 10,
+
+        const SizedBox(height: 30),
+
+        /// ITEM 1
+        _item(
+          icon: "assets/icons/help.svg",
+          title: "Help & Support",
+          subtitle: "Get help and contact us",
         ),
-        Container(
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(16),
-              boxShadow: [
-                BoxShadow(
-                    color: AppColor.gray.withValues(alpha: 0.5),
-                    spreadRadius: 2,
-                    blurRadius: 8,
-                    offset: Offset(0, 4))
-              ],
-              color: AppColor.white,
-              border: Border.all(color: AppColor.gray_background)),
-          child: Padding(
-            padding:
-            EdgeInsets.symmetric(vertical: 30, horizontal: 22),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  padding: EdgeInsets.all(15),
-                  decoration: BoxDecoration(
-                      color: AppColor.gray.withValues(alpha: 0.1),
-                      borderRadius: BorderRadius.circular(16)),
-                  child: SvgPicture.asset(
-                    "assets/icons/about.svg",
-                    color: AppColor.gray,
-                  ),
-                ),
-                Spacer(),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "About iPredict",
-                      style: TextStyle(
-                          color: AppColor.black,
-                          fontSize: 22,
-                          fontWeight: FontWeight.w400),
-                    ),
-                    Text(
-                      "Version 2.1.0",
-                      style: TextStyle(
-                          color: AppColor.gray,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w400),
-                    ),
-                  ],
-                ),
-                Spacer(),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(Icons.arrow_forward_ios , color: AppColor.gray,),
-                  ],
-                )
-              ],
-            ),
-          ),
+
+        const SizedBox(height: 10),
+
+        /// ITEM 2
+        _item(
+          icon: "assets/icons/about.svg",
+          title: "About iPredict",
+          subtitle: "Version 2.1.0",
         ),
       ],
+    );
+  }
+
+  Widget _item({
+    required String icon,
+    required String title,
+    required String subtitle,
+  }) {
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: AppColor.gray.withOpacity(0.5),
+            spreadRadius: 2,
+            blurRadius: 8,
+            offset: const Offset(0, 4),
+          )
+        ],
+        color: AppColor.white,
+        border: Border.all(color: AppColor.gray_background),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 25, horizontal: 20),
+        child: Row(
+          children: [
+            /// ICON
+            Container(
+              padding: const EdgeInsets.all(15),
+              decoration: BoxDecoration(
+                color: AppColor.gray.withOpacity(0.1),
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: SvgPicture.asset(
+                icon,
+                color: AppColor.gray,
+              ),
+            ),
+
+            const SizedBox(width: 15),
+
+            /// TEXT
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    style: const TextStyle(
+                      color: AppColor.black,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                  const SizedBox(height: 5),
+                  Text(
+                    subtitle,
+                    style: const TextStyle(
+                      color: AppColor.gray,
+                      fontSize: 15,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
+            /// ARROW
+            const Icon(
+              Icons.arrow_forward_ios,
+              color: AppColor.gray,
+              size: 18,
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

@@ -1,33 +1,27 @@
 import 'dart:async';
-import 'dart:math';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:ipredict/features/layout/data/repo/home_repo.dart';
+
+import '../../../data/repo/home_repo.dart';
 
 import 'home_event.dart';
 import 'home_state.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   final HomeRepository repository = HomeRepository();
-  Timer? _timer;
 
-  final Random _random = Random();
-  double _temperature = 30;
-  double _vibration = 0.08;
-  double _airQuality = 180;
+  Timer? _timer;
 
   HomeBloc() : super(HomeInitial()) {
     on<LoadHomeEvent>(_loadHome);
     on<RefreshHomeEvent>(_refreshHome);
 
-    _startRealTimeUpdates();
+    _startRealTime();
   }
 
-  void _startRealTimeUpdates() {
+  void _startRealTime() {
     _timer = Timer.periodic(
       const Duration(seconds: 5),
-      (timer) {
-        add(RefreshHomeEvent());
-      },
+      (_) => add(RefreshHomeEvent()),
     );
   }
 
@@ -37,28 +31,23 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   ) async {
     emit(HomeLoading());
 
-    await _generateData(emit);
+    await _loadData(emit);
   }
 
   Future<void> _refreshHome(
     RefreshHomeEvent event,
     Emitter<HomeState> emit,
   ) async {
-    await _generateData(emit);
+    await _loadData(emit);
   }
 
-  Future<void> _generateData(
-    Emitter<HomeState> emit,
-  ) async {
-    /// TODO: Replace this mock data with repository.getDashboardData()
+  Future<void> _loadData(Emitter<HomeState> emit) async {
     try {
-      _temperature += (_random.nextDouble() - 0.5) * 4;
-      _vibration += (_random.nextDouble() - 0.5) * 0.04;
-      _airQuality += (_random.nextDouble() - 0.5) * 10;
+      final data = await repository.getHome();
 
-      double temperature = _temperature;
-      double vibration = _vibration;
-      double airQuality = _airQuality;
+      double temperature = data["temperature"];
+      double vibration = data["vibration"];
+      double airQuality = data["airQuality"];
 
       double healthScore = _calculateHealth(
         temperature,
@@ -68,12 +57,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
       String healthStatus = _getHealthStatus(healthScore);
 
-      List<AlertModel> alerts = _generateAlerts(
-        temperature,
-        vibration,
-        airQuality,
-      );
-
       emit(
         HomeLoaded(
           temperature: temperature,
@@ -81,11 +64,11 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
           airQuality: airQuality,
           healthScore: healthScore,
           healthStatus: healthStatus,
-          alerts: alerts,
-          onlineServers: 12,
-          warningServers: 3,
-          offlineServers: 2,
-          totalServers: 17,
+          alerts: [],
+          onlineServers: data["online"],
+          warningServers: data["warning"],
+          offlineServers: data["offline"],
+          totalServers: data["total"],
         ),
       );
     } catch (e) {
@@ -116,61 +99,13 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
   String _getHealthStatus(double score) {
     if (score >= 85) return "Good";
-
     if (score >= 65) return "Warning";
-
     return "Critical";
-  }
-
-  /// Temporary alerts generator
-  /// TODO: Remove when alerts come from Firebase
-  List<AlertModel> _generateAlerts(
-    double temperature,
-    double vibration,
-    double airQuality,
-  ) {
-    List<AlertModel> alerts = [];
-
-    if (temperature > 40) {
-      alerts.add(
-        AlertModel(
-          title: "High Temperature Detected",
-          location: "Server Room",
-          severity: "critical",
-          time: "Now",
-        ),
-      );
-    }
-
-    if (vibration > 0.2) {
-      alerts.add(
-        AlertModel(
-          title: "Abnormal Vibration",
-          location: "Machine #3",
-          severity: "warning",
-          time: "Now",
-        ),
-      );
-    }
-
-    if (airQuality > 250) {
-      alerts.add(
-        AlertModel(
-          title: "Air Quality Warning",
-          location: "Production Area",
-          severity: "warning",
-          time: "Now",
-        ),
-      );
-    }
-
-    return alerts;
   }
 
   @override
   Future<void> close() {
     _timer?.cancel();
-
     return super.close();
   }
 }

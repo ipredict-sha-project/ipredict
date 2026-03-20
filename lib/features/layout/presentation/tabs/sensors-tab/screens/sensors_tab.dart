@@ -1,86 +1,100 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:ipredict/core/theme/app_color.dart';
-import 'package:ipredict/features/layout/presentation/tabs/sensors-tab/widget/air_qulatiy/air_quality_sensor_widget.dart';
-import 'package:ipredict/features/layout/presentation/widgets/appbar_widget.dart';
-import 'package:syncfusion_flutter_charts/sparkcharts.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../../../../core/theme/app_color.dart';
+import '../../../manager/sensors/sensor_bloc.dart';
+import '../../../manager/sensors/sensor_event.dart';
+import '../../../manager/sensors/sensor_state.dart';
+import '../../../widgets/appbar_widget.dart';
 
 import '../widget/SystemStatus.dart';
-import '../widget/smoke/humidity_sensor_widget.dart';
-import '../widget/sound/sound_sensor_widget.dart';
-import '../widget/temperature/temperature_sensor_widget.dart';
-import '../widget/vibration/vibration_sensor_widget.dart';
+import '../widget/sensor_card.dart';
 
 class SensorsTab extends StatelessWidget {
   const SensorsTab({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColor.white,
-      body: SafeArea(
-          child: SingleChildScrollView(
-        child: Column(
-          children: [
-            AppbarWidget(),
-            Container(
-              padding: EdgeInsets.symmetric(vertical: 15, horizontal: 15),
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: 30,
-                  ),
-                  Column(
-                    children: [
-                      Text(
-                        'Sensors',
-                        style: TextStyle(
-                            color: AppColor.black,
-                            fontSize: 35,
-                            fontWeight: FontWeight.w400),
+    return BlocProvider(
+      create: (_) => SensorsBloc()..add(LoadSensorsEvent()),
+      child: Scaffold(
+        backgroundColor: AppColor.white,
+        body: SafeArea(
+          child: BlocBuilder<SensorsBloc, SensorsState>(
+            builder: (context, state) {
+              if (state is SensorsLoading) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+
+              if (state is SensorsLoaded) {
+                return ListView(
+                  children: [
+                    AppbarWidget(),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 20,
+                        vertical: 20,
                       ),
-                      Text(
-                        'Live Monitoring & Analytics',
-                        style: TextStyle(
-                            color: AppColor.gray,
-                            fontSize: 16,
-                            fontWeight: FontWeight.w400),
+                      child: Column(
+                        children: [
+                          const SizedBox(height: 30),
+                          const Text(
+                            'Sensors',
+                            style: TextStyle(
+                              fontSize: 35,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          const Text(
+                            'Live Monitoring & Analytics',
+                            style: TextStyle(
+                              color: Colors.grey,
+                              fontSize: 16,
+                            ),
+                          ),
+                          const SizedBox(height: 30),
+                          Systemstatus(sensors: state.sensors),
+                          const SizedBox(height: 30),
+                          ...state.sensors.map((sensor) {
+                            return Column(
+                              children: [
+                                SensorCard(sensor: sensor),
+                                const SizedBox(height: 25),
+                              ],
+                            );
+                          }).toList(),
+                          const SizedBox(height: 40),
+                        ],
+                      ),
+                    ),
+                  ],
+                );
+              }
+
+              if (state is SensorsError) {
+                return Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text("Failed to load sensors"),
+                      ElevatedButton(
+                        onPressed: () {
+                          context.read<SensorsBloc>().add(LoadSensorsEvent());
+                        },
+                        child: const Text("Retry"),
                       )
                     ],
                   ),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  Systemstatus(),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  TemperatureSensorWidget(),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  HumiditySensorWidget(),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  AirQualitySensorWidget(),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  SoundSensorWidget(),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  VibrationSensorWidget(),
-                  SizedBox(
-                    height: 40,
-                  ),
-                ],
-              ),
-            ),
-          ],
+                );
+              }
+
+              return const SizedBox();
+            },
+          ),
         ),
-      )),
+      ),
     );
   }
 }

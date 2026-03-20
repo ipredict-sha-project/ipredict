@@ -1,23 +1,12 @@
-class AlertModel {
-  final String title;
-  final String location;
-  final String severity;
-  final String time;
-
-  AlertModel({
-    required this.title,
-    required this.location,
-    required this.severity,
-    required this.time,
-  });
-}
-
 abstract class HomeState {}
 
+/// INITIAL
 class HomeInitial extends HomeState {}
 
+/// LOADING
 class HomeLoading extends HomeState {}
 
+/// LOADED
 class HomeLoaded extends HomeState {
   final double temperature;
   final double vibration;
@@ -26,7 +15,8 @@ class HomeLoaded extends HomeState {
   final double healthScore;
   final String healthStatus;
 
-  final List<AlertModel> alerts;
+  /// 👇 مهم: مش AlertModel
+  final List alerts;
 
   final int onlineServers;
   final int warningServers;
@@ -47,4 +37,5 @@ class HomeLoaded extends HomeState {
   });
 }
 
+/// ERROR
 class HomeError extends HomeState {}

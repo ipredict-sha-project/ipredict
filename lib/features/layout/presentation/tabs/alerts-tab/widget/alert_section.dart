@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../module/alert_module.dart';
+import '../../../../data/models/alert_module.dart';
 import 'alert_card.dart';
 
 class AlertSection extends StatefulWidget {

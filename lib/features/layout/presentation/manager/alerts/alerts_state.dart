@@ -1,4 +1,4 @@
-import '../../tabs/alerts-tab/module/alert_module.dart';
+import '../../../data/models/alert_module.dart';
 
 abstract class AlertsState {}
 

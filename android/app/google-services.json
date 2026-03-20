@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "538153412800",
+    "firebase_url": "https://iprdict-sha-project-default-rtdb.firebaseio.com",
     "project_id": "iprdict-sha-project",
     "storage_bucket": "iprdict-sha-project.firebasestorage.app"
   },
@@ -14,11 +15,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "538153412800-jv21a18lc0uv0ehsgn5vij5omfehqj4a.apps.googleusercontent.com",
+          "client_id": "538153412800-qscurk1bic3hp7q6u94e78akrqpinc4i.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.ipredict.ipredict",
-            "certificate_hash": "f6bfdde086df2da000cc77df7f69a9a3d0c103af"
+            "certificate_hash": "f2d800cdf3dde3c9381fd11aa750575ffefdf48b"
           }
         },
         {

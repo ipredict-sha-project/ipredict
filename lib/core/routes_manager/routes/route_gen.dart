@@ -1,4 +1,3 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ipredict/features/auth/presentation/screens/forget_password.dart';
@@ -57,43 +56,19 @@ class RouteGen {
             return LayoutScreen();
           },
         );
-        case AppRouteName.home:
-        return MaterialPageRoute(
-          builder: (context) {
-            return HomeTab();
-          },
-        );
-        case AppRouteName.sensor:
-        return MaterialPageRoute(
-          builder: (context) {
-            return SensorsTab();
-          },
-        );
-        case AppRouteName.device:
+      case AppRouteName.device:
         return MaterialPageRoute(
           builder: (context) {
             return DevicesTab();
           },
         );
-        case AppRouteName.alerts:
-        return MaterialPageRoute(
-          builder: (context) {
-            return AlertsTab();
-          },
-        );
-        case AppRouteName.setting:
+      case AppRouteName.setting:
         return MaterialPageRoute(
           builder: (context) {
             return SettingsTab();
           },
         );
-        case AppRouteName.sensor_details:
-        return MaterialPageRoute(
-          builder: (context) {
-            return SensorsDetails();
-          },
-        );
-        default:
+      default:
         return MaterialPageRoute(
           builder: (context) {
             return NotFoundScreen();

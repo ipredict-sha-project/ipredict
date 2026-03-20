@@ -42,12 +42,15 @@ dependencies:
   shared_preferences:
   provider:
   intl:
+  intl_phone_field:
+  pinput: 4.0.0
+  sms_autofill:
   icons_plus:
   flutter_svg:
   firebase_core:
   firebase_auth:
   cloud_firestore:
-  google_sign_in: ^7.1.1
+  google_sign_in: 6.1.5
   percent_indicator:
   syncfusion_flutter_charts:
 animated_toggle_switch:

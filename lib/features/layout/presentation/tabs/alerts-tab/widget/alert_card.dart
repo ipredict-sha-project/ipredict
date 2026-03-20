@@ -3,11 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../../core/theme/app_color.dart';
 
-import '../module/alert_module.dart';
+import '../../../../data/models/alert_module.dart';
+import '../screens/alert_details.dart';
 
 import '../../../manager/alerts/alerts_bloc.dart';
 import '../../../manager/alerts/alerts_event.dart';
-import '../screens/alert_details.dart';
 
 class AlertCard extends StatelessWidget {
   final AlertModel alert;
@@ -19,15 +19,12 @@ class AlertCard extends StatelessWidget {
 
   Color getColor() {
     if (alert.status == "critical") return AppColor.red;
-
     if (alert.status == "warning") return AppColor.orange;
-
     return AppColor.green;
   }
 
   String formatTime(DateTime time) {
     final now = DateTime.now();
-
     final yesterday = now.subtract(const Duration(days: 1));
 
     if (time.day == now.day &&
@@ -85,7 +82,6 @@ class AlertCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               /// TITLE + STATUS
-
               Row(
                 children: [
                   Expanded(
@@ -120,7 +116,6 @@ class AlertCard extends StatelessWidget {
               const SizedBox(height: 8),
 
               /// DESCRIPTION
-
               Text(
                 alert.description,
                 style: TextStyle(color: AppColor.gray),
@@ -129,7 +124,6 @@ class AlertCard extends StatelessWidget {
               const SizedBox(height: 15),
 
               /// SENSOR INFO
-
               Row(
                 children: [
                   const Icon(Icons.sensors, size: 18),
@@ -146,7 +140,6 @@ class AlertCard extends StatelessWidget {
               const SizedBox(height: 10),
 
               /// LOCATION + TIME
-
               Row(
                 children: [
                   const Icon(Icons.location_on_outlined, size: 18),
@@ -161,7 +154,6 @@ class AlertCard extends StatelessWidget {
               const SizedBox(height: 18),
 
               /// VALUES
-
               Row(
                 children: [
                   Expanded(
@@ -232,7 +224,6 @@ class AlertCard extends StatelessWidget {
               const SizedBox(height: 18),
 
               /// RESOLVED VIEW
-
               if (alert.status == "resolved")
                 Container(
                   padding: const EdgeInsets.symmetric(vertical: 12),
@@ -252,9 +243,6 @@ class AlertCard extends StatelessWidget {
                   ),
                 )
               else
-
-                /// BUTTONS
-
                 Row(
                   children: [
                     Expanded(
@@ -278,12 +266,12 @@ class AlertCard extends StatelessWidget {
                         onTap: () {
                           if (alert.status == "critical") {
                             context.read<AlertsBloc>().add(
-                                  ResolveAlertEvent(alert),
-                                );
+                              ResolveAlertEvent(alert),
+                            );
                           } else {
                             context.read<AlertsBloc>().add(
-                                  AcknowledgeAlertEvent(alert),
-                                );
+                              AcknowledgeAlertEvent(alert),
+                            );
                           }
                         },
                         child: Container(

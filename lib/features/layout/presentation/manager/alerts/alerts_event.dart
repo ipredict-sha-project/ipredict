@@ -1,10 +1,14 @@
-import '../../tabs/alerts-tab/module/alert_module.dart';
+import '../../../data/models/alert_module.dart';
 
 abstract class AlertsEvent {}
 
 class LoadAlertsEvent extends AlertsEvent {}
 
-class RefreshAlertsEvent extends AlertsEvent {}
+class UpdateAlertsEvent extends AlertsEvent {
+  final List<AlertModel> alerts;
+
+  UpdateAlertsEvent(this.alerts);
+}
 
 class ResolveAlertEvent extends AlertsEvent {
   final AlertModel alert;

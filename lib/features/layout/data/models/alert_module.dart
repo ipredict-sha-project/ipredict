@@ -31,7 +31,9 @@ class AlertModel {
 
   factory AlertModel.fromJson(Map<String, dynamic> json, [String? docId]) {
     return AlertModel(
+      /// ✅ أهم تعديل هنا
       id: docId ?? json['id'] ?? '',
+
       title: json['title'] ?? '',
       description: json['description'] ?? '',
       sensorName: json['sensorName'] ?? '',
@@ -41,10 +43,12 @@ class AlertModel {
       threshold: (json['threshold'] ?? 0).toDouble(),
       unit: json['unit'] ?? '',
       status: json['status'] ?? 'warning',
+
       time: (json['time'] is Timestamp)
           ? (json['time'] as Timestamp).toDate()
           : DateTime.tryParse(json['time']?.toString() ?? '') ??
           DateTime.now(),
+
       resolvedBy: json['resolvedBy'],
     );
   }

@@ -1,27 +1,60 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
 import '../models/alert_module.dart';
 
 class AlertsRepository {
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
+  final FirebaseAuth auth = FirebaseAuth.instance;
 
   Stream<List<AlertModel>> getAlertsStream() {
-    return firestore.collection('alerts').snapshots().map((snapshot) {
+    final userId = auth.currentUser?.uid;
+
+    if (userId == null) {
+      print("❌ No user logged in");
+      return const Stream.empty();
+    }
+
+    return firestore
+        .collection('users')
+        .doc(userId)
+        .collection('alerts')
+        .snapshots()
+        .map((snapshot) {
+      print("🚨 Alerts count: ${snapshot.docs.length}");
+
       return snapshot.docs.map((doc) {
-        return AlertModel.fromJson(doc.data(), doc.id);
+        final data = doc.data();
+
+        return AlertModel.fromJson(data, doc.id);
       }).toList();
     });
   }
 
   Future<void> resolveAlert(String id) async {
-    await firestore.collection('alerts').doc(id).update({
+    final userId = auth.currentUser!.uid;
+
+    await firestore
+        .collection('users')
+        .doc(userId)
+        .collection('alerts')
+        .doc(id)
+        .update({
       "status": "resolved",
       "resolvedBy": "Operator",
     });
   }
 
   Future<void> acknowledgeAlert(String id) async {
-    await firestore.collection('alerts').doc(id).update({
-      "acknowledged": true,
+    final userId = auth.currentUser!.uid;
+
+    await firestore
+        .collection('users')
+        .doc(userId)
+        .collection('alerts')
+        .doc(id)
+        .update({
+      "status": "warning",
     });
   }
 }

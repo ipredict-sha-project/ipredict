@@ -25,7 +25,9 @@ class SensorModel {
       name: json['name'] ?? '',
       type: json['type'] ?? '',
       location: json['location'] ?? '',
-      value: (json['value'] ?? 0).toDouble(),
+      value: (json['value'] is num)
+          ? (json['value'] as num).toDouble()
+          : 0,
       unit: json['unit'] ?? '',
       status: json['status'] ?? 'normal',
       lastUpdate: DateTime.now(),

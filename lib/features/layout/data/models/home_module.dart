@@ -33,7 +33,12 @@ class DashboardModel {
       offlineServers: json["offline_servers"] ?? 0,
       totalServers: json["total_servers"] ?? 0,
       alerts: (json["alerts"] as List? ?? [])
-          .map((e) => AlertModel.fromJson(e))
+          .map((e) => AlertModel.fromJson(
+        e,
+        e is Map<String, dynamic> && e.containsKey('id')
+            ? e['id']
+            : '',
+      ))
           .toList(),
     );
   }

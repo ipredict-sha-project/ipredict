@@ -20,7 +20,6 @@ class SensorsBloc extends Bloc<SensorsEvent, SensorsState> {
     on<UpdateSensorsEvent>(_update);
   }
 
-  /// 🔥 LOAD
   Future<void> _load(
       LoadSensorsEvent event,
       Emitter<SensorsState> emit,
@@ -28,8 +27,6 @@ class SensorsBloc extends Bloc<SensorsEvent, SensorsState> {
     emit(SensorsLoading());
 
     final cached = await _loadFromCache();
-
-    /// ✅ أهم تعديل: اعرض حتى لو فاضي
     emit(SensorsLoaded(sensors: cached));
 
     _subscription?.cancel();
@@ -37,20 +34,22 @@ class SensorsBloc extends Bloc<SensorsEvent, SensorsState> {
     try {
       _subscription = repository.getSensorsStream().listen(
             (sensors) {
-          /// ✅ شيلنا شرط isNotEmpty
+          print("Sensors loaded: ${sensors.length}");
+
           _saveToCache(sensors);
           add(UpdateSensorsEvent(sensors));
         },
-        onError: (_) {
+        onError: (e) {
+          print("ERROR: $e");
           emit(SensorsError());
         },
       );
-    } catch (_) {
+    } catch (e) {
+      print("ERROR: $e");
       emit(SensorsError());
     }
   }
 
-  /// 🔥 UPDATE
   void _update(
       UpdateSensorsEvent event,
       Emitter<SensorsState> emit,
@@ -58,12 +57,10 @@ class SensorsBloc extends Bloc<SensorsEvent, SensorsState> {
     emit(SensorsLoaded(sensors: event.sensors));
   }
 
-  /// 🔥 CACHE SAVE
   Future<void> _saveToCache(List<SensorModel> sensors) async {
     final prefs = await SharedPreferences.getInstance();
 
-    final data = sensors
-        .map((e) => {
+    final data = sensors.map((e) => {
       "id": e.id,
       "name": e.name,
       "type": e.type,
@@ -71,13 +68,11 @@ class SensorsBloc extends Bloc<SensorsEvent, SensorsState> {
       "value": e.value,
       "unit": e.unit,
       "status": e.status,
-    })
-        .toList();
+    }).toList();
 
     await prefs.setString("cached_sensors", jsonEncode(data));
   }
 
-  /// 🔥 CACHE LOAD
   Future<List<SensorModel>> _loadFromCache() async {
     final prefs = await SharedPreferences.getInstance();
 
